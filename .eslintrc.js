@@ -1,8 +1,9 @@
 module.exports = {
     "globals" : {
-        "console":true
+        "console": true,
     },
     "env": {
+        "meteor": true,
         "node": true,
         "browser": true,
         "es6": true
@@ -32,11 +33,19 @@ module.exports = {
         ],
         "quotes": [
             "error",
-            "double"
+            "single"
         ],
         "semi": [
             "error",
             "always"
-        ]
+        ],
+       "no-unused-vars": [
+         "error",
+         {
+           "vars": "local",
+           "args": "after-used",
+           "ignoreRestSiblings": false
+         }
+       ]
     }
 };
