@@ -1,0 +1,75 @@
+html
+{
+  height: 100%;
+  min-height: 100%;
+}
+body
+{
+  height: 100%;
+  min-height: 100%;
+}
+div #render-target
+{
+  height: 100% !important;
+  min-height: 100% !important;
+}
+.full-height {
+    height: 100%;
+    min-height: 100%;
+}
+.container-fluid
+{
+  height: 100% !important;
+  min-height: 100% !important;
+}
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.open>a
+{
+  /*background-image: none !important;
+  background-color: #04BC00 !important;*/
+  background-image: linear-gradient(to bottom,#DCAE1D 0,#DCAE1D 100%);
+  /*font-family: 'Roboto Slab', serif !important;*/
+}
+.navbar-inverse {
+  background-image: linear-gradient(to bottom,#007296 0,#00303f 100%);
+}
+.navbar-inverse .navbar-brand {
+  color: #fff;
+    /*  color: #DCAE1D;*/
+}
+.navbar-inverse .navbar-nav>li>a {
+  /*  color: #DCAE1D;*/
+  color: #fff;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+  /*  background-color: #CAE4DB;*/
+    color: #DCAE1D;
+}
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav>li>a {
+    text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+}
+.landing-welcome h1
+{
+  text-align: center;
+  font-weight: bold;
+  font-size: 3em;
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 0.5em;
+}
+.landing-welcome p
+{
+  font-weight: 400;
+  text-align: center;
+  font-size: 1.5em;
+  line-height: 160%;
+  max-width: 40em;
+  margin: auto;
+}
+.landing-more
+{
+  background-color: #f4f4f4;
+  margin-top: 10em;
+}
+#row-childs
+{
+  height: 100%;
+}

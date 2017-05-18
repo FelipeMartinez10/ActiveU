@@ -4,6 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Events } from '../api/events.js';
 import Navbar from './Navbar.jsx';
 import Event from './Event.jsx';
+import '../style/App.css';
 /* eslint-enable no-unused-vars */
 
 class App extends Component {
@@ -16,10 +17,13 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <header>
-          <h1>ActiveU</h1>
-        </header>
+      <div className="container-fluid">
+        <div className='row'>
+          <Navbar/>
+        </div>
+        <div className="row">
+          {React.cloneElement(this.props.children, { ...this.state })}
+        </div>
       </div>
     );
   }
