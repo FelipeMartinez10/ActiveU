@@ -1,7 +1,10 @@
-import React, { Component, PropTypes } from 'react'; // eslint-disable-line no-unused-vars
+/* eslint-disable no-unused-vars */
+import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Events } from '../api/events.js';
-import Event from './Event.jsx'; // eslint-disable-line no-unused-vars
+import Navbar from './Navbar.jsx';
+import Event from './Event.jsx';
+/* eslint-enable no-unused-vars */
 
 class App extends Component {
 

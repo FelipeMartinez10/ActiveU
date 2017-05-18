@@ -1,9 +1,18 @@
-import React from 'react'; // eslint-disable-line no-unused-vars
+/* eslint-disable no-unused-vars */
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
-
-import App from '../imports/ui/App.jsx'; // eslint-disable-line no-unused-vars
+import { browserHistory, Router, Route, IndexRoute } from 'react-router';
+import App from '../imports/ui/App.jsx';
+import Event from '../imports/ui/Event.jsx';
+/* eslint-enable no-unused-vars */
 
 Meteor.startup(() => {
-  render(<App />, document.getElementById('render-target'));
+  render(<Router history={browserHistory}>
+    <Route path="/" component={App}>
+      {/* <IndexRoute component={Welcome} />
+      <Route path="leaderboard" component={Leaderboard} />
+      <Route path="home" component={Home} /> */}
+    </Route>
+  </Router>, document.getElementById('render-target'));
 });
