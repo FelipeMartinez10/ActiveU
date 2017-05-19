@@ -10,14 +10,42 @@ class Event extends Component {
    this.state = {
      events: this.props.events,
      currentPage: 1,
-     eventsPerPage: 4
+     eventsPerPage: 4,
+     selectedEvent:
+     {
+       name:"",
+       description:"",
+       day:"",
+       month:"",
+       howMany:"",
+       type:"",
+       place:""
+     }
    };
    this.handleClick = this.handleClick.bind(this);
+   this.handleDetailButton = this.handleDetailButton.bind(this);
   }
   handleClick(event) {
    this.setState({
      currentPage: Number(event)
    });
+  }
+
+  handleDetailButton(evento)
+  {
+    /*console.log(evento.when.getHours());*/
+    const day = evento.when.getDate();
+    const month = evento.when.getMonth();
+    let newEvent = {
+      name: evento.name,
+      description: evento.description,
+      day: day,
+      month: month,
+      howMany: evento.howMany,
+      type: evento.type,
+      place: evento.place
+    }
+    this.setState({selectedEvent: newEvent});
   }
 
   render() {
@@ -50,7 +78,7 @@ class Event extends Component {
         </div>
         <div className='col-md-5'>
           <p><i className="fa fa-user" aria-hidden="true"></i> {event.howMany} cupos</p>
-          <Button bsStyle="primary">Detalles</Button>
+          <Button bsStyle="primary" onClick={this.handleDetailButton.bind(this, event)}>Detalles</Button>
         </div>
       </div>);
     });
@@ -64,7 +92,13 @@ class Event extends Component {
         <div className="row">
           <div className='col-md-1'></div>
           <div className='col-md-4'>
-            <Detalles/>
+            <Detalles name={this.state.selectedEvent.name}
+            description={this.state.selectedEvent.description}
+            day={this.state.selectedEvent.day}
+            month={this.state.selectedEvent.month}
+            howMany={this.state.selectedEvent.howMany}
+            type={this.state.selectedEvent.type}
+            place={this.state.selectedEvent.place}/>
           </div>
           <div className='col-md-6'>
             <div className="box events container-fluid">
