@@ -1,14 +1,19 @@
 import React, { Component, PropTypes } from 'react'; // eslint-disable-line no-unused-vars
 import {Pagination} from 'react-bootstrap';
-export default class Event extends Component {
-  constructor() {
-   super();
+import { createContainer } from 'meteor/react-meteor-data';
+import { Events } from '../api/events.js';
+
+class Event extends Component {
+  constructor(props) {
+   super(props);
    this.state = {
-     events: ['a','b','c','d','e','f','g','h','i','j','k'],
+     events: this.props.events,
      currentPage: 1,
      eventsPerPage: 4
    };
    this.handleClick = this.handleClick.bind(this);
+   console.log(this.props);
+   console.log(this.state);
   }
   handleClick(event) {
    this.setState({
@@ -32,7 +37,7 @@ export default class Event extends Component {
     			</div>
         </div>
         <div className='col-md-10'>
-          <p>{event}</p>
+          <p>{event.name}</p>
         </div>
       </div>);
     });
@@ -78,3 +83,12 @@ export default class Event extends Component {
     );
   }
 }
+Event.propTypes = {
+  events: PropTypes.array,
+};
+export default createContainer(() => {
+  Meteor.subscribe('events');
+  return {
+    events: Events.find({}).fetch(),
+  };
+}, Event);

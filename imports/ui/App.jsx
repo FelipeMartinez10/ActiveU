@@ -9,11 +9,6 @@ import '../style/App.css';
 
 class App extends Component {
 
-  renderEvents() {
-    return this.props.events.map( (event) => (
-      <Event event={event} />
-    ));
-  }
 
   render() {
     return (
@@ -29,12 +24,4 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
-  events: PropTypes.array.isRequired,
-};
-
-export default createContainer(() => {
-  return {
-    tasks: Events.find({}).fetch(),
-  };
-}, App);
+export default App;
