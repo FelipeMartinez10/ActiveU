@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'; // eslint-disable-line no-u
 import {Pagination} from 'react-bootstrap';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Events } from '../api/events.js';
+import Detalles from './Detalles.jsx';
 
 class Event extends Component {
   constructor(props) {
@@ -51,12 +52,7 @@ class Event extends Component {
         <div className="row">
           <div className='col-md-1'></div>
           <div className='col-md-4'>
-            <div className="card hovercard">
-              <div className="cardheader"></div>
-              <div className="avatar">
-                <img alt="" src="img/avatar/hombre1.png"></img>
-              </div>
-            </div>
+            <Detalles/>
           </div>
           <div className='col-md-6'>
             <div className="box events container-fluid">
