@@ -24,8 +24,16 @@ export default class Event extends Component {
     const renderEvents = currentEvents.map((event, index) =>
     {
       return(
-      <div className='event-box' key={index}>
-        <p>{event}</p>
+      <div className='event-box row' key={index}>
+        <div className='col-md-2 time'>
+          <div>
+    				<span className="day">5</span>
+    				<span className="month">Jul</span>
+    			</div>
+        </div>
+        <div className='col-md-10'>
+          <p>{event}</p>
+        </div>
       </div>);
     });
 
@@ -51,7 +59,9 @@ export default class Event extends Component {
                 <h1>Eventos:</h1>
               </div>
             	<div className='row'>
-                {renderEvents}
+                <div className='col-md-12'>
+                  {renderEvents}
+                </div>
               </div>
               <div className='row'>
                 <Pagination
