@@ -154,15 +154,16 @@ div #render-target
 }
 .day
 {
+  text-align: center;
   display: block;
-  font-size: 56pt;
+  font-size: 4.5em;
   font-weight: 100;
   line-height: 1;
 }
 .month
 {
   display: block;
-  font-size: 24pt;
+  font-size: 2em;
   font-weight: 900;
   line-height: 1;
 }
@@ -171,5 +172,4 @@ div #render-target
   background-color: #005c79;
   color: rgb(255, 255, 255);
   text-align: center;
-  text-transform: uppercase;
 }

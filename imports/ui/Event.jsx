@@ -12,8 +12,6 @@ class Event extends Component {
      eventsPerPage: 4
    };
    this.handleClick = this.handleClick.bind(this);
-   console.log(this.props);
-   console.log(this.state);
   }
   handleClick(event) {
    this.setState({
@@ -26,14 +24,16 @@ class Event extends Component {
     const indexOfLastEvent = currentPage * eventsPerPage;
     const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
     const currentEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
+    const monthNames = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN","JUL", "AGO",
+    "SEP", "OCT", "NOV", "DIC"];
     const renderEvents = currentEvents.map((event, index) =>
     {
       return(
       <div className='event-box row' key={index}>
         <div className='col-md-2 time'>
           <div>
-    				<span className="day">5</span>
-    				<span className="month">Jul</span>
+    				<span className="day">{event.when.getDate()}</span>
+    				<span className="month">{monthNames[event.when.getMonth()]}</span>
     			</div>
         </div>
         <div className='col-md-10'>
