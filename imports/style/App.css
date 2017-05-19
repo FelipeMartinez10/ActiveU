@@ -63,6 +63,7 @@ div #render-target
   line-height: 160%;
   max-width: 40em;
   margin: auto;
+  font-family: 'Open Sans', sans-serif;
 }
 .landing-welcome
 {
@@ -74,6 +75,11 @@ div #render-target
 {
   background-color: #f4f4f4;
   text-align: center;
+  font-family: 'Open Sans', sans-serif;
+}
+.landing-more h2
+{
+  font-weight: 700;
 }
 #row-childs
 {
@@ -146,6 +152,21 @@ div #render-target
   font-size: 2em;
   font-family: 'Open Sans', sans-serif;
 }
+.event-box h4
+{
+  text-align: left;
+  font-weight: bold;
+  /*font-size: 2em;*/
+  font-family: 'Open Sans', sans-serif;
+  margin-left: 0.5em;
+}
+.event-box p
+{
+  margin-left: 0.5em;
+  font-weight: 400;
+  font-family: 'Open Sans', sans-serif;
+}
+
 .event-box
 {
   box-shadow: 0 1px 3px rgba(0,0,0,0.30);
@@ -172,4 +193,11 @@ div #render-target
   background-color: #005c79;
   color: rgb(255, 255, 255);
   text-align: center;
+}
+.row-eq-height 
+{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
 }

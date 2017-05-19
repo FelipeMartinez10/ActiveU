@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'; // eslint-disable-line no-unused-vars
-import {Pagination} from 'react-bootstrap';
+import {Pagination, Button} from 'react-bootstrap';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Events } from '../api/events.js';
 import Detalles from './Detalles.jsx';
@@ -30,15 +30,27 @@ class Event extends Component {
     const renderEvents = currentEvents.map((event, index) =>
     {
       return(
-      <div className='event-box row' key={index}>
+      <div className='event-box row row-eq-height ' key={index}>
         <div className='col-md-2 time'>
           <div>
     				<span className="day">{event.when.getDate()}</span>
     				<span className="month">{monthNames[event.when.getMonth()]}</span>
     			</div>
         </div>
-        <div className='col-md-10'>
-          <p>{event.name}</p>
+        <div className='col-md-5'>
+          <div className='row'>
+            <h4>{event.name}</h4>
+          </div>
+          <div className='row'>
+            <p><b>Lugar: </b>{event.place}</p>
+          </div>
+          <div className='row'>
+            <p><b>Tipo: </b>{event.type}</p>
+          </div>
+        </div>
+        <div className='col-md-5'>
+          <p><i className="fa fa-user" aria-hidden="true"></i> {event.howMany} cupos</p>
+          <Button bsStyle="primary">Detalles</Button>
         </div>
       </div>);
     });
