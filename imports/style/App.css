@@ -107,6 +107,7 @@ div #render-target
     overflow: hidden;
     text-align: center;
     background-color: #f4f4f4;
+    margin-top: 3em;
 }
 
 .card.hovercard .cardheader {
@@ -137,7 +138,6 @@ div #render-target
     display: block;
     margin-top: 3em;
     border: 0.1em solid rgba(0, 0, 0, 0.2);
-    /*box-shadow: 0 1px 3px rgba(0,0,0,0.30);*/
 }
 .events h1
 {
@@ -145,4 +145,8 @@ div #render-target
   font-weight: bold;
   font-size: 2em;
   font-family: 'Open Sans', sans-serif;
+}
+.event-box
+{
+  box-shadow: 0 1px 3px rgba(0,0,0,0.30);
 }

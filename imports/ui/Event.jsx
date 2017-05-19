@@ -21,8 +21,12 @@ export default class Event extends Component {
     const indexOfLastEvent = currentPage * eventsPerPage;
     const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
     const currentEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
-    const renderEvents = currentEvents.map((event, index) => {
-      return <li key={index}>{event}</li>;
+    const renderEvents = currentEvents.map((event, index) =>
+    {
+      return(
+      <div className='event-box' key={index}>
+        <p>{event}</p>
+      </div>);
     });
 
     const pageNumbers = [];
@@ -42,16 +46,20 @@ export default class Event extends Component {
             </div>
           </div>
           <div className='col-md-6'>
-            <div className="box events">
-            	<h1>Eventos:</h1>
-              <ul>
+            <div className="box events container-fluid">
+              <div className='row'>
+                <h1>Eventos:</h1>
+              </div>
+            	<div className='row'>
                 {renderEvents}
-              </ul>
-              <Pagination
-               bsSize="medium"
-               items={pageNumbers.length}
-               activePage={this.state.currentPage}
-               onSelect={this.handleClick} />
+              </div>
+              <div className='row'>
+                <Pagination
+                 bsSize="medium"
+                 items={pageNumbers.length}
+                 activePage={this.state.currentPage}
+                 onSelect={this.handleClick} />
+              </div>
             </div>
           </div>
           <div className='col-md-1'></div>
