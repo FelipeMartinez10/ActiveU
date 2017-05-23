@@ -41,3 +41,10 @@ export const createEvent = new ValidatedMethod({
     });
   }
 });
+
+if (Meteor.isServer) {
+  // This code only runs on the server
+  Meteor.publish('events', function eventsPublication() {
+    return Events.find({});
+  });
+}

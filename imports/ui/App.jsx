@@ -24,7 +24,6 @@ class App extends Component {
   }
 }
 
-//export default App;
 App.propTypes = {
   events: PropTypes.array,
 };
