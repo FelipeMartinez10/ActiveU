@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { Component, PropTypes } from 'react';
-/* eslint-disable no-unused-vars */
+/* eslint-enable no-unused-vars */
 
 export default class Profile extends Component {
   render() {

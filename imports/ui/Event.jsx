@@ -8,33 +8,33 @@ import Detalles from './Detalles.jsx';
 
 class Event extends Component {
   constructor(props) {
-   super(props);
-   this.state = {
-     events: this.props.events,
-     currentPage: 1,
-     eventsPerPage: 4,
-     selectedEvent:
-     {
-       name:"",
-       description:"",
-       day:"",
-       month:"",
-       howMany:"",
-       type:"",
-       place:""
-     },
-     selected: false
-   };
-   this.handleClick = this.handleClick.bind(this);
-   this.handleDetailButton = this.handleDetailButton.bind(this);
+    super(props);
+    this.state = {
+      events: this.props.events,
+      currentPage: 1,
+      eventsPerPage: 4,
+      selectedEvent: {
+        name:'',
+        description:'',
+        day:'',
+        month:'',
+        howMany:'',
+        type:'',
+        place:''
+      },
+      selected: false
+    };
+    this.handleClick = this.handleClick.bind(this);
+    this.handleDetailButton = this.handleDetailButton.bind(this);
   }
+
   handleClick(event) {
-   this.setState({
-     currentPage: Number(event)
-   });
+    this.setState({
+      currentPage: Number(event)
+    });
   }
-  handleDetailButton(evento)
-  {
+
+  handleDetailButton(evento)  {
     /*console.log(evento.when.getHours());*/
     const day = evento.when.getDate();
     const month = evento.when.getMonth();
@@ -46,9 +46,10 @@ class Event extends Component {
       howMany: evento.howMany,
       type: evento.type,
       place: evento.place
-    }
+    };
     this.setState({selectedEvent: newEvent, selected: true});
   }
+
   render() {
     const eventSelected = this.state.selected;
     const events = this.props.events;
@@ -56,22 +57,20 @@ class Event extends Component {
     const indexOfLastEvent = currentPage * eventsPerPage;
     const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
     const currentEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
-    const monthNames = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN","JUL", "AGO",
-    "SEP", "OCT", "NOV", "DIC"];
+    const monthNames = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN','JUL', 'AGO',
+      'SEP', 'OCT', 'NOV', 'DIC'];
     let eventsEmpty = true;
-    if(events.length > 0)
-    {
+    if(events.length > 0) {
       eventsEmpty = false;
     }
-    const renderEvents = currentEvents.map((event, index) =>
-    {
-      return(
+    const renderEvents = currentEvents.map((event, index) => {
+      return (
       <div className='event-box row row-eq-height ' key={index}>
         <div className='col-md-2 time'>
           <div>
-    				<span className="day">{event.when.getDate()}</span>
-    				<span className="month">{monthNames[event.when.getMonth()]}</span>
-    			</div>
+            <span className="day">{event.when.getDate()}</span>
+            <span className="month">{monthNames[event.when.getMonth()]}</span>
+          </div>
         </div>
         <div className='col-md-5'>
           <div className='row'>
@@ -92,6 +91,7 @@ class Event extends Component {
     });
 
     const pageNumbers = [];
+    
     for (let i = 1; i <= Math.ceil(events.length / eventsPerPage); i++) {
       pageNumbers.push(i);
     }
@@ -120,7 +120,7 @@ class Event extends Component {
               <div className='row'>
                 <h1>Eventos:</h1>
               </div>
-            	<div className='row'>
+              <div className='row'>
                 <div className='col-md-12'>
                   {(eventsEmpty)? <h3>No hay eventos disponibles</h3> :renderEvents}
                 </div>
