@@ -37,8 +37,27 @@ export const createEvent = new ValidatedMethod({
       type,
       description,
       when,
-      howMany
+      howMany,
+      people: []
     });
+  }
+});
+
+export const addPerson = new ValidatedMethod({
+  name: 'events.addPerson',
+  validate: new SimpleSchema({
+    id: { type: Number },
+    person: { type: String }
+  }).validator(),
+  run({ id, person }) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+    let event = Events.findOne({'_id': id});
+    if (event.people.length >= event.howMany) {
+      throw new Meteor.Error('event full');
+    }
+    Events.update({ '_id': id }, { $push: { people: person } });
   }
 });
 
