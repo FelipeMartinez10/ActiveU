@@ -64,6 +64,27 @@ export const addPerson = new ValidatedMethod({
   }
 });
 
+export const removePerson = new ValidatedMethod({
+  name: 'events.removePerson',
+  validate: new SimpleSchema({
+    id: { type: Number },
+    person: { type: String }
+  }).validator(),
+  run({ id, person }) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+    let event = Events.findOne({'_id': id});
+    if (!event.people.includes(person)) {
+      throw new Meteor.Error('no such user in event');
+    }
+    if (event.people.length <= 0) {
+      throw new Meteor.Error('event empty');
+    }
+    Events.update({ '_id': id }, { $pull: { people: person } });
+  }
+});
+
 if (Meteor.isServer) {
   // This code only runs on the server
   Meteor.publish('events', function eventsPublication() {
