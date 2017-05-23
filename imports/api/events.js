@@ -54,6 +54,9 @@ export const addPerson = new ValidatedMethod({
       throw new Meteor.Error('not-authorized');
     }
     let event = Events.findOne({'_id': id});
+    if (event.people.includes(person)) {
+      throw new Meteor.Error('no duplicate users');
+    }
     if (event.people.length >= event.howMany) {
       throw new Meteor.Error('event full');
     }
