@@ -1,8 +1,10 @@
-import React, { Component, PropTypes } from 'react'; // eslint-disable-line no-unused-vars
+/* eslint-disable no-unused-vars */
+import React, { Component, PropTypes } from 'react';
 import {Pagination, Button} from 'react-bootstrap';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Events } from '../api/events.js';
 import Detalles from './Detalles.jsx';
+/* eslint-enable no-unused-vars */
 
 class Event extends Component {
   constructor(props) {

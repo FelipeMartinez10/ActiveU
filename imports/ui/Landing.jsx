@@ -1,4 +1,6 @@
-import React, { Component, PropTypes } from 'react'; // eslint-disable-line no-unused-vars
+/* eslint-disable no-unused-vars */
+import React, { Component, PropTypes } from 'react';
+/* eslint-enable no-unused-vars */
 
 export default class Landing extends Component {
   render() {
