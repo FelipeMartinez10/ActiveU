@@ -20,7 +20,8 @@ class Event extends Component {
        howMany:"",
        type:"",
        place:""
-     }
+     },
+     selected: false
    };
    this.handleClick = this.handleClick.bind(this);
    this.handleDetailButton = this.handleDetailButton.bind(this);
@@ -44,9 +45,10 @@ class Event extends Component {
       type: evento.type,
       place: evento.place
     }
-    this.setState({selectedEvent: newEvent});
+    this.setState({selectedEvent: newEvent, selected: true});
   }
   render() {
+    const eventSelected = this.state.selected;
     const events = this.props.events;
     const { currentPage, eventsPerPage } = this.state;
     const indexOfLastEvent = currentPage * eventsPerPage;
@@ -54,6 +56,11 @@ class Event extends Component {
     const currentEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
     const monthNames = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN","JUL", "AGO",
     "SEP", "OCT", "NOV", "DIC"];
+    let eventsEmpty = true;
+    if(events.length > 0)
+    {
+      eventsEmpty = false;
+    }
     const renderEvents = currentEvents.map((event, index) =>
     {
       return(
@@ -91,13 +98,20 @@ class Event extends Component {
         <div className="row">
           <div className='col-md-1'></div>
           <div className='col-md-4'>
-            <Detalles name={this.state.selectedEvent.name}
-            description={this.state.selectedEvent.description}
-            day={this.state.selectedEvent.day}
-            month={this.state.selectedEvent.month}
-            howMany={this.state.selectedEvent.howMany}
-            type={this.state.selectedEvent.type}
-            place={this.state.selectedEvent.place}/>
+            {(eventSelected)?
+              <Detalles name={this.state.selectedEvent.name}
+              description={this.state.selectedEvent.description}
+              day={this.state.selectedEvent.day}
+              month={this.state.selectedEvent.month}
+              howMany={this.state.selectedEvent.howMany}
+              type={this.state.selectedEvent.type}
+              place={this.state.selectedEvent.place}/>
+               :
+               <div className='selectSomething'>
+                 <h2 id='selectSomething'>¡Selecciona un evento de la lista para ver mas detalles!</h2>
+                 <i className="fa fa-arrow-right fa-4x" aria-hidden="true"></i>
+               </div>
+            }
           </div>
           <div className='col-md-6'>
             <div className="box events container-fluid">
@@ -106,7 +120,7 @@ class Event extends Component {
               </div>
             	<div className='row'>
                 <div className='col-md-12'>
-                  {renderEvents}
+                  {(eventsEmpty)? <h3>No hay eventos disponibles</h3> :renderEvents}
                 </div>
               </div>
               <div className='row'>
@@ -126,12 +140,3 @@ class Event extends Component {
 }
 
 export default Event;
-/*Event.propTypes = {
-  events: PropTypes.array,
-};
-export default createContainer(() => {
-  Meteor.subscribe('events');
-  return {
-    events: Events.find({}).fetch()
-  };
-}, Event);*/

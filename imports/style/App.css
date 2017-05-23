@@ -138,6 +138,45 @@ div #render-target
     border-radius: 50%;
     border: 5px solid rgba(255,255,255,0.5);
 }
+.card h4
+{
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+}
+.card h5
+{
+  text-align: left;
+  margin-left: 0.5em;
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+}
+.card p
+{
+  font-weight: 400;
+  font-family: 'Open Sans', sans-serif;
+  margin-top: 0.5em;
+}
+.details-description
+{
+  background-color: #fff;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.30);
+  margin-bottom: 0.5em;
+}
+.details-button
+{
+  margin-top: 1em;
+  margin-bottom: 1em;
+  text-align: right;
+  margin-right: 0.5em;
+}
+.selectSomething
+{
+  margin-top: 5em;
+  text-align: center;
+}
+
 .box{
     border-radius: 5em;
     padding: 1em 2em;
@@ -194,7 +233,7 @@ div #render-target
   color: rgb(255, 255, 255);
   text-align: center;
 }
-.row-eq-height 
+.row-eq-height
 {
   display: -webkit-box;
   display: -webkit-flex;
