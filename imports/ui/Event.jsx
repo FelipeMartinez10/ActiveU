@@ -30,7 +30,6 @@ class Event extends Component {
      currentPage: Number(event)
    });
   }
-
   handleDetailButton(evento)
   {
     /*console.log(evento.when.getHours());*/
@@ -47,9 +46,9 @@ class Event extends Component {
     }
     this.setState({selectedEvent: newEvent});
   }
-
   render() {
-    const { events, currentPage, eventsPerPage } = this.state;
+    const events = this.props.events;
+    const { currentPage, eventsPerPage } = this.state;
     const indexOfLastEvent = currentPage * eventsPerPage;
     const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
     const currentEvents = events.slice(indexOfFirstEvent, indexOfLastEvent);
@@ -125,12 +124,14 @@ class Event extends Component {
     );
   }
 }
-Event.propTypes = {
+
+export default Event;
+/*Event.propTypes = {
   events: PropTypes.array,
 };
 export default createContainer(() => {
   Meteor.subscribe('events');
   return {
-    events: Events.find({}).fetch(),
+    events: Events.find({}).fetch()
   };
-}, Event);
+}, Event);*/

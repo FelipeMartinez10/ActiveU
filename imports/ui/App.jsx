@@ -17,11 +17,20 @@ class App extends Component {
           <Navbar/>
         </div>
         <div className="row">
-          {React.cloneElement(this.props.children, { ...this.state })}
+          {React.cloneElement(this.props.children, { events: this.props.events})}
         </div>
       </div>
     );
   }
 }
 
-export default App;
+//export default App;
+App.propTypes = {
+  events: PropTypes.array,
+};
+export default createContainer(() => {
+  Meteor.subscribe('events');
+  return {
+    events: Events.find({}).fetch()
+  };
+}, App);
