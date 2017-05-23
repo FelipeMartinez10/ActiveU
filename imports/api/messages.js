@@ -19,7 +19,7 @@ Messages.deny({
 export const newMessage = new ValidatedMethod({
   name: 'messages.new',
   validate: new SimpleSchema({
-    event: { type: Number },
+    event: { type: Object },
     text: { type: String },
   }).validator(),
   run({ event, text }) {
@@ -38,13 +38,13 @@ export const newMessage = new ValidatedMethod({
 export const removeMessage = new ValidatedMethod({
   name: 'messages.remove',
   validate: new SimpleSchema({
-    id: { type: Number }
+    id: { type: Object }
   }).validator(),
   run({ id }) {
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    Messages.remove(id);
+    Messages.remove({ '_id': id });
   }
 });
 

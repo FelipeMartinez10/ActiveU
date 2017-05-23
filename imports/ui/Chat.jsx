@@ -1,15 +1,18 @@
 /* eslint-disable no-unused-vars */
-import React, {Component} from 'react';
+import React, { Component, PropTypes } from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
+import { Messages } from '../api/messages.js';
 import { Meteor } from 'meteor/meteor';
 import { Button } from 'react-bootstrap';
 import '../style/Chat.css';
 /* eslint-enable no-unused-vars */
 
-export default class Chat extends Component {
+class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hidden: true
+      hidden: true,
+      comment: ''
     };
   }
 
@@ -19,15 +22,22 @@ export default class Chat extends Component {
     });
   }
 
+  updateComment(comment) {
+    this.setState({
+      comment
+    });
+  }
+
+  addComent() {
+    // console.log('adding comment: ' + this.state.comment);
+  }
+
   render() {
     return this.state.hidden ? (
       <div className="panel panel-primary">
-        <div className="panel-heading" id="accordion">
+        <div className="panel-heading" id="accordion" onClick={ () => { this.toggleHidden(); } }>
           <span className="fa fa-comments"></span> Chat
-          <span
-            className="pull-right fa fa-caret-down"
-            onClick={ () => { this.toggleHidden(); } }
-          />
+          <span className="pull-right fa fa-caret-down"/>
         </div>
       </div>
     ) : (
@@ -40,13 +50,29 @@ export default class Chat extends Component {
           />
         </div>
         <div className="panel-body">
-          <p>mensajes mensajes</p>
+          <ul className="chat">
+          {
+            this.props.messages.map( (msg) => {
+              <ChatMsg
+                message={msg}
+              />;
+            })
+          }
+          </ul>
         </div>
-        <div class="panel-footer">
-          <div class="input-group">
-            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
-            <span class="input-group-btn">
-              <button class="btn btn-warning btn-sm">
+        <div className="panel-footer">
+          <div className="input-group">
+            <input id="btn-input"
+              type="text"
+              className="form-control input-sm"
+              placeholder="Escribe tu mensaje..."
+              onChange={ (e) => this.updateComment(e.target.value) }
+            />
+            <span className="input-group-btn">
+              <button
+                className="btn btn-warning btn-sm"
+                onClick={ () => this.addComent() }
+              >
                 Send
               </button>
             </span>
@@ -56,3 +82,16 @@ export default class Chat extends Component {
     );
   }
 }
+
+Chat.propTypes = {
+  event: PropTypes.string,
+  messages: PropTypes.array,
+};
+
+export default createContainer( props => {
+  Meteor.subscribe('messages');
+  console.log(props.event);
+  return {
+    messages: Messages.find({}).fetch()
+  };
+}, Chat);

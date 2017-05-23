@@ -24,21 +24,15 @@ export default class Detalles extends Component {
             <div className='row details-description'>
               <p>{this.props.description}</p>
             </div>
-            {/* Depronto es redundante esta info.
-              <div className='row'>
-              <p>{this.props.type}</p>
-              <p>{this.props.place}</p>
-              <p>{this.props.day}</p>
-              <p>{this.props.month}</p>
-              <p>{this.props.howMany}</p>
-            </div>*/}
             <div className='row details-button'>
               <Button bsStyle="success">¡Me interesa! <i className="fa fa-check-circle" aria-hidden="true"></i>
               </Button>
             </div>
           </div>
         </div>
-        <Chat />
+        <Chat
+          event={this.props.id}
+        />
       </div>
     );
   }

@@ -39,6 +39,7 @@ class Event extends Component {
     const day = evento.when.getDate();
     const month = evento.when.getMonth();
     let newEvent = {
+      id: evento._id._str,
       name: evento.name,
       description: evento.description,
       day: day,
@@ -101,13 +102,16 @@ class Event extends Component {
           <div className='col-md-1'></div>
           <div className='col-md-4'>
             {(eventSelected)?
-              <Detalles name={this.state.selectedEvent.name}
-              description={this.state.selectedEvent.description}
-              day={this.state.selectedEvent.day}
-              month={this.state.selectedEvent.month}
-              howMany={this.state.selectedEvent.howMany}
-              type={this.state.selectedEvent.type}
-              place={this.state.selectedEvent.place}/>
+              <Detalles
+                id={this.state.selectedEvent.id}
+                name={this.state.selectedEvent.name}
+                description={this.state.selectedEvent.description}
+                day={this.state.selectedEvent.day}
+                month={this.state.selectedEvent.month}
+                howMany={this.state.selectedEvent.howMany}
+                type={this.state.selectedEvent.type}
+                place={this.state.selectedEvent.place}
+              />
                :
                <div className='selectSomething'>
                  <h2 id='selectSomething'>¡Selecciona un evento de la lista para ver mas detalles!</h2>
