@@ -91,7 +91,7 @@ class Event extends Component {
     });
 
     const pageNumbers = [];
-    
+
     for (let i = 1; i <= Math.ceil(events.length / eventsPerPage); i++) {
       pageNumbers.push(i);
     }
