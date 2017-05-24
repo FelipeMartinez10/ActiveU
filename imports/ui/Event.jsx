@@ -22,7 +22,10 @@ class Event extends Component {
         type:'',
         place:''
       },
-      selected: false
+      selected: false,
+      filterHowMany: 0,
+      filterType: '',
+      filterDate: new Date(0)
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleDetailButton = this.handleDetailButton.bind(this);
@@ -51,9 +54,59 @@ class Event extends Component {
     this.setState({selectedEvent: newEvent, selected: true});
   }
 
+  changeTypeFilter(type) {
+    this.setState({
+      filterType: type
+    });
+  }
+
+  changeHowManyFilter(howMany) {
+    this.setState({
+      filterHowMany: howMany
+    });
+  }
+
+  changeDateFilter(date) {
+    this.setState({
+      filterDate: date
+    });
+  }
+
+  renderFiltros() {
+    return (
+      <div className="row">
+        <div className="col-md-4">
+          <h4>Tipo</h4>
+          <input
+            type="text"
+            onChange={ e => this.changeTypeFilter(e.target.value) }
+          />
+        </div>
+        <div className="col-md-4">
+          <h4># personas</h4>
+          <input
+            type="number"
+            onChange={ e => this.changeHowManyFilter(e.target.value) }
+          />
+        </div>
+        <div className="col-md-4">
+          <h4>Fecha</h4>
+          <input
+            type="date"
+            onChange={ e => this.changeDateFilter(e.target.value) }
+          />
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const eventSelected = this.state.selected;
-    const events = this.props.events;
+    const events = this.props.events.filter( event => {
+      return event.type.toLowerCase().includes(this.state.filterType.toLowerCase()) &&
+        event.howMany >= this.state.filterHowMany &&
+        event.when >= this.state.filterDate;
+    });
     const { currentPage, eventsPerPage } = this.state;
     const indexOfLastEvent = currentPage * eventsPerPage;
     const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
@@ -123,10 +176,11 @@ class Event extends Component {
             <div className="box events container-fluid">
               <div className='row'>
                 <h1>Eventos:</h1>
+                { this.renderFiltros() }
               </div>
               <div className='row'>
                 <div className='col-md-12'>
-                  {(eventsEmpty)? <h3>No hay eventos disponibles</h3> :renderEvents}
+                  {(eventsEmpty)? <h3>No hay eventos disponibles</h3> : renderEvents}
                 </div>
               </div>
               <div className='row'>
