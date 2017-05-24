@@ -37,15 +37,23 @@ class Profile extends Component {
 
   render() {
     return (
-      <div className='row'>
-        <div className="box events container-fluid">
-          <div className="col-md-3">
-            <img src="img/avatar/hombre1.png" alt="Profile picture" />
-          </div>
-          <div className="info col-md-6">
-            <h1>{Meteor.user().username}</h1>
-            <h2>Semestre</h2>
-            <h2>Carrera</h2>
+      <div >
+        <div className="container-fluid">
+          <div className ='row'>
+            <div className='col-md-1'></div>
+            <div className='col-md-10 box events'>
+              <div className='row'>
+                <div className="col-md-4">
+                  <img src="img/avatar/hombre1.png" alt="Profile picture" className='profile-pic'/>
+                </div>
+                <div className="info col-md-8">
+                  <h1>{Meteor.user().username}</h1>
+                  <h2>Semestre</h2>
+                  <h2>Carrera</h2>
+                </div>
+              </div>
+            </div>
+            <div className='col-md-1'></div>
           </div>
         </div>
       </div>

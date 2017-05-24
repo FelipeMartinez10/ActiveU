@@ -258,3 +258,7 @@ div #render-target
   text-align: center;
   margin-top: 1.5em;
 }
+.profile-pic
+{
+  border-radius: 50%;
+}
