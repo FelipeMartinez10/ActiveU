@@ -9,16 +9,14 @@ import '../style/App.css';
 
 class App extends Component {
 
-
   render() {
-    let user = Meteor.user();
     return (
       <div className="container-fluid">
         <div className='row'>
-          <Navbar/>
+          <Navbar user={this.props.currentUser}/>
         </div>
         <div className="row">
-          {React.cloneElement(this.props.children, { events: this.props.events, user: user})}
+          {React.cloneElement(this.props.children, { events: this.props.events, user:this.props.currentUser})}
         </div>
       </div>
     );
@@ -27,10 +25,12 @@ class App extends Component {
 
 App.propTypes = {
   events: PropTypes.array,
+  currentUser: PropTypes.object,
 };
 export default createContainer(() => {
   Meteor.subscribe('events');
   return {
+    currentUser: Meteor.user(),
     events: Events.find({}).fetch()
   };
 }, App);

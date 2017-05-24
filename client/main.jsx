@@ -17,7 +17,6 @@ Meteor.startup(() => {
       <Route path="eventos" component={Event} />
       <Route path="perfil" component={Profile} />
       <Route path="landing" component={Landing} />
-      <Route path="login" component={Login} />
     </Route>
   </Router>, document.getElementById('render-target'));
 });

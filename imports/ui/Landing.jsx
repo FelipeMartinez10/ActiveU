@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { Component, PropTypes } from 'react';
+import Login from "./Login.jsx";
 /* eslint-enable no-unused-vars */
 
 export default class Landing extends Component {
@@ -14,7 +15,8 @@ export default class Landing extends Component {
             universitaria.</p>
         </div>
         <div className='row landing-more'>
-          <h2>Conoce Más</h2>
+          {/*<h2>Conoce Más</h2>*/}
+          <Login/>
         </div>
       </div>
     );

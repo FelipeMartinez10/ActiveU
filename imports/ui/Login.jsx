@@ -13,24 +13,45 @@ export default class Login extends Component {
       passwordLogin:"",
       emailSignUp:"",
       passwordSignUp:"",
-      rePasswordSignUp:""
+      rePasswordSignUp:"",
+      showSignUp: false
     };
     this.login = this.login.bind(this);
     this.loginOut = this.loginOut.bind(this);
     this.signUp = this.signUp.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.showSignUpForm = this.showSignUpForm.bind(this);
+    this.showLoginForm = this.showLoginForm.bind(this);
   }
 
+  showSignUpForm()
+  {
+    this.setState(
+      {
+        showSignUp:true
+      });
+  }
+  showLoginForm()
+  {
+    this.setState(
+      {
+        showSignUp:false
+      });
+  }
   login()
   {
-    console.log('login');
+    let self = this;
     Meteor.loginWithPassword({email: this.state.emailLogin}, this.state.passwordLogin, function(err)
     {
       if(err)
       {
         console.log(err);
       }
-    });
+      else
+      {
+        self.context.router.push('/eventos');
+      }
+    },this);
   }
   loginOut()
   {
@@ -44,7 +65,7 @@ export default class Login extends Component {
   }
   signUp()
   {
-    console.log('signUp');
+    let self = this;
     if(this.state.passwordSignUp == this.state.rePasswordSignUp)
     {
       Accounts.createUser({email: this.state.emailSignUp, password: this.state.passwordSignUp},function(err)
@@ -52,6 +73,10 @@ export default class Login extends Component {
         if(err)
         {
           window.alert(err.reason);
+        }
+        else
+        {
+          self.context.router.push('/eventos');
         }
       });
     }
@@ -83,88 +108,96 @@ export default class Login extends Component {
     }
   }
   render() {
+    const showSignUp = this.state.showSignUp;
     return (
       <div className='container-fluid'>
-        <div className="row login-form">
-          <div className='col-md-4'></div>
-          <div className='col-md-4'>
-            <h2>Inicia Sesión:</h2>
-            <form>
-              <div className="row">
-    						<div className="col-sm-12 col-md-10  col-md-offset-1 ">
-    							<div className="form-group">
-    								<div className="input-group">
-    									<span className="input-group-addon">
-    										<i className="glyphicon glyphicon-user"></i>
-    									</span>
-    									<input className="form-control" placeholder="Email" type="email" name='email'
-                        value={this.state.value} onChange={this.handleChange}></input>
-    								</div>
-    							</div>
-    							<div className="form-group">
-    								<div className="input-group">
-    									<span className="input-group-addon">
-    										<i className="glyphicon glyphicon-lock"></i>
-    									</span>
-    									<input className="form-control" placeholder="Contraseña" type="password" name='password'
-                        value={this.state.passwordLogin} onChange={this.handleChange}></input>
-    								</div>
-    							</div>
-    							<div className="form-group">
-    								  <Button bsStyle="primary" onClick={this.login}>Ingresar</Button>
-                      <Button bsStyle="primary" onClick={this.loginOut}>Cerrar Sesión</Button>
-    							</div>
-    						</div>
-    					</div>
-            </form>
-          </div>
-          <div className='col-md-4'></div>
-    		</div>
-
-        <div className="row login-form">
-          <div className='col-md-4'></div>
-          <div className='col-md-4'>
-            <h2>Regístrate::</h2>
-            <form>
-              <div className="row">
-                <div className="col-sm-12 col-md-10  col-md-offset-1 ">
-                  <div className="form-group">
-                    <div className="input-group">
-                      <span className="input-group-addon">
-                        <i className="glyphicon glyphicon-user"></i>
-                      </span>
-                      <input className="form-control" placeholder="Email" type='email' name="emailSignUp"
-                        value={this.state.emailSignUp} onChange={this.handleChange}></input>
+        {(showSignUp)?
+          <div className="row login-form">
+            <div className='col-md-4'></div>
+            <div className='col-md-4'>
+              <h2>Regístrate:</h2>
+              <form>
+                <div className="row">
+                  <div className="col-sm-12 col-md-10  col-md-offset-1 ">
+                    <div className="form-group">
+                      <div className="input-group">
+                        <span className="input-group-addon">
+                          <i className="glyphicon glyphicon-user"></i>
+                        </span>
+                        <input className="form-control" placeholder="Email" type='email' name="emailSignUp"
+                          value={this.state.emailSignUp} onChange={this.handleChange}></input>
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <div className="input-group">
-                      <span className="input-group-addon">
-                        <i className="glyphicon glyphicon-lock"></i>
-                      </span>
-                      <input className="form-control" placeholder="Contraseña" name="passwordSignUp" type='password'
-                        value={this.state.passwordSignUp} onChange={this.handleChange}></input>
+                    <div className="form-group">
+                      <div className="input-group">
+                        <span className="input-group-addon">
+                          <i className="glyphicon glyphicon-lock"></i>
+                        </span>
+                        <input className="form-control" placeholder="Contraseña" name="passwordSignUp" type='password'
+                          value={this.state.passwordSignUp} onChange={this.handleChange}></input>
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group">
-                    <div className="input-group">
-                      <span className="input-group-addon">
-                        <i className="glyphicon glyphicon-lock"></i>
-                      </span>
-                      <input className="form-control" placeholder="Confirma Contraseña" name="rePasswordSignUp" type='password'
-                        value={this.state.rePasswordSignUp} onChange={this.handleChange}></input>
+                    <div className="form-group">
+                      <div className="input-group">
+                        <span className="input-group-addon">
+                          <i className="glyphicon glyphicon-lock"></i>
+                        </span>
+                        <input className="form-control" placeholder="Confirma Contraseña" name="rePasswordSignUp" type='password'
+                          value={this.state.rePasswordSignUp} onChange={this.handleChange}></input>
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group">
-                      <Button bsStyle="primary" onClick={this.signUp}>Regístrarse</Button>
+                    <div className="form-group">
+                        <Button bsStyle="primary" onClick={this.signUp}>Regístrarse</Button>
+                        <p>¿Tienes cuenta? <a onClick={this.showLoginForm} className='clickable'>Inicia Sesión</a></p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
+            <div className='col-md-4'></div>
           </div>
-          <div className='col-md-4'></div>
-        </div>
+          :
+          <div className="row login-form">
+            <div className='col-md-4'></div>
+            <div className='col-md-4'>
+              <h2>Inicia Sesión:</h2>
+              <form>
+                <div className="row">
+      						<div className="col-sm-12 col-md-10  col-md-offset-1 ">
+      							<div className="form-group">
+      								<div className="input-group">
+      									<span className="input-group-addon">
+      										<i className="glyphicon glyphicon-user"></i>
+      									</span>
+      									<input className="form-control" placeholder="Email" type="email" name='email'
+                          value={this.state.emailLogin} onChange={this.handleChange}></input>
+      								</div>
+      							</div>
+      							<div className="form-group">
+      								<div className="input-group">
+      									<span className="input-group-addon">
+      										<i className="glyphicon glyphicon-lock"></i>
+      									</span>
+      									<input className="form-control" placeholder="Contraseña" type="password" name='password'
+                          value={this.state.passwordLogin} onChange={this.handleChange}></input>
+      								</div>
+      							</div>
+      							<div className="form-group">
+      								  <Button bsStyle="primary" onClick={this.login}>Ingresar</Button>
+                        <p>¿No tienes cuenta? <a onClick={this.showSignUpForm} className='clickable'>¡Regístrate!</a></p>
+                        {/*<Button bsStyle="primary" onClick={this.loginOut}>Cerrar Sesión</Button>*/}
+      							</div>
+      						</div>
+      					</div>
+              </form>
+            </div>
+            <div className='col-md-4'></div>
+      		</div>
+        }
       </div>
     );
   }
+}
+Login.contextTypes = {
+  router: React.PropTypes.object
 }
