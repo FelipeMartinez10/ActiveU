@@ -14,6 +14,7 @@ export default class Login extends Component {
       emailSignUp:"",
       passwordSignUp:"",
       rePasswordSignUp:"",
+      usernameSignUp:"",
       showSignUp: false
     };
     this.login = this.login.bind(this);
@@ -83,7 +84,7 @@ export default class Login extends Component {
     let self = this;
     if(this.state.passwordSignUp == this.state.rePasswordSignUp)
     {
-      Accounts.createUser({email: this.state.emailSignUp, password: this.state.passwordSignUp},function(err)
+      Accounts.createUser({username: this.state.usernameSignUp, email: this.state.emailSignUp, password: this.state.passwordSignUp},function(err)
       {
         if(err)
         {
@@ -121,6 +122,10 @@ export default class Login extends Component {
     {
       this.setState({rePasswordSignUp: event.target.value});
     }
+    if(event.target.name == "usernameSignUp")
+    {
+      this.setState({usernameSignUp: event.target.value});
+    }
   }
   render() {
     const showSignUp = this.state.showSignUp;
@@ -137,10 +142,19 @@ export default class Login extends Component {
                     <div className="form-group">
                       <div className="input-group">
                         <span className="input-group-addon">
-                          <i className="glyphicon glyphicon-user"></i>
+                          <i className="glyphicon glyphicon-envelope"></i>
                         </span>
                         <input className="form-control" placeholder="Email" type='email' name="emailSignUp"
                           value={this.state.emailSignUp} onChange={this.handleChange}  onKeyPress={this.handleKeySignUp}></input>
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <div className="input-group">
+                        <span className="input-group-addon">
+                          <i className="glyphicon glyphicon-user"></i>
+                        </span>
+                        <input className="form-control" placeholder="Nombre de usuario" type='text' name="usernameSignUp"
+                          value={this.state.usernameSignUp} onChange={this.handleChange}  onKeyPress={this.handleKeySignUp}></input>
                       </div>
                     </div>
                     <div className="form-group">
@@ -182,7 +196,7 @@ export default class Login extends Component {
       							<div className="form-group">
       								<div className="input-group">
       									<span className="input-group-addon">
-      										<i className="glyphicon glyphicon-user"></i>
+      										<i className="glyphicon glyphicon-envelope"></i>
       									</span>
       									<input className="form-control" placeholder="Email" type="email" name='email'
                           value={this.state.emailLogin} onChange={this.handleChange} onKeyPress={this.handleKeyLogin}></input>

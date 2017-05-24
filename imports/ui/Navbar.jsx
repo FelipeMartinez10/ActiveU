@@ -8,10 +8,10 @@ class Navegacion extends Component {
 
   render() {
     const isLoggedin = (this.props.user !== null);
-    let email = '';
+    let username = '';
     if(this.props.user !== undefined && this.props.user !== null)
     {
-      email = this.props.user.emails[0].address;
+      username = this.props.user.username;
     }
     return (
       <div>
@@ -33,7 +33,7 @@ class Navegacion extends Component {
                   </LinkContainer>
                 </Nav>
                 <Nav pullRight>
-                  <NavDropdown eventKey={4} title={email} id="basic-nav-dropdown">
+                  <NavDropdown eventKey={4} title={username} id="basic-nav-dropdown">
                    <MenuItem eventKey={4.1} onClick={()=>{Meteor.logout(); this.context.router.push('/landing');}}>Cerrar Sesión</MenuItem>
                  </NavDropdown>
                 </Nav>
