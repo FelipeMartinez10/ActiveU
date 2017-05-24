@@ -22,8 +22,23 @@ export default class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.showSignUpForm = this.showSignUpForm.bind(this);
     this.showLoginForm = this.showLoginForm.bind(this);
+    this.handleKeyLogin = this.handleKeyLogin.bind(this);
+    this.handleKeySignUp = this.handleKeySignUp.bind(this);
   }
-
+  handleKeyLogin(e)
+  {
+    if(e.key ==='Enter')
+    {
+      this.login();
+    }
+  }
+  handleKeySignUp(e)
+  {
+    if(e.key ==='Enter')
+    {
+      this.signUp();
+    }
+  }
   showSignUpForm()
   {
     this.setState(
@@ -125,7 +140,7 @@ export default class Login extends Component {
                           <i className="glyphicon glyphicon-user"></i>
                         </span>
                         <input className="form-control" placeholder="Email" type='email' name="emailSignUp"
-                          value={this.state.emailSignUp} onChange={this.handleChange}></input>
+                          value={this.state.emailSignUp} onChange={this.handleChange}  onKeyPress={this.handleKeySignUp}></input>
                       </div>
                     </div>
                     <div className="form-group">
@@ -134,7 +149,7 @@ export default class Login extends Component {
                           <i className="glyphicon glyphicon-lock"></i>
                         </span>
                         <input className="form-control" placeholder="Contraseña" name="passwordSignUp" type='password'
-                          value={this.state.passwordSignUp} onChange={this.handleChange}></input>
+                          value={this.state.passwordSignUp} onChange={this.handleChange}  onKeyPress={this.handleKeySignUp}></input>
                       </div>
                     </div>
                     <div className="form-group">
@@ -143,7 +158,7 @@ export default class Login extends Component {
                           <i className="glyphicon glyphicon-lock"></i>
                         </span>
                         <input className="form-control" placeholder="Confirma Contraseña" name="rePasswordSignUp" type='password'
-                          value={this.state.rePasswordSignUp} onChange={this.handleChange}></input>
+                          value={this.state.rePasswordSignUp} onChange={this.handleChange} onKeyPress={this.handleKeySignUp}></input>
                       </div>
                     </div>
                     <div className="form-group">
@@ -170,7 +185,7 @@ export default class Login extends Component {
       										<i className="glyphicon glyphicon-user"></i>
       									</span>
       									<input className="form-control" placeholder="Email" type="email" name='email'
-                          value={this.state.emailLogin} onChange={this.handleChange}></input>
+                          value={this.state.emailLogin} onChange={this.handleChange} onKeyPress={this.handleKeyLogin}></input>
       								</div>
       							</div>
       							<div className="form-group">
@@ -179,7 +194,7 @@ export default class Login extends Component {
       										<i className="glyphicon glyphicon-lock"></i>
       									</span>
       									<input className="form-control" placeholder="Contraseña" type="password" name='password'
-                          value={this.state.passwordLogin} onChange={this.handleChange}></input>
+                          value={this.state.passwordLogin} onChange={this.handleChange} onKeyPress={this.handleKeyLogin}></input>
       								</div>
       							</div>
       							<div className="form-group">
