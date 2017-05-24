@@ -258,3 +258,25 @@ div #render-target
   text-align: center;
   margin-top: 1.5em;
 }
+.profile-pic
+{
+  border-radius: 50%;
+}
+.profile-events
+{
+  background-color: #f4f4f4
+}
+.botones-perfil
+{
+  margin-left: 0.5em;
+}
+.buttons-profile
+{
+  background-image: none;
+}
+.none{/*Used for profile buttons*/}
+.buttons-profile:focus
+{
+  background-color:white;
+}
+.none:focus{background-color:white;}

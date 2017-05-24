@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { Component, PropTypes } from 'react';
-import {Pagination, Button} from 'react-bootstrap';
+import {Pagination, Button, ButtonGroup} from 'react-bootstrap';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Events } from '../api/events.js';
+import ProfileList from './ProfileList.jsx';
 /* eslint-enable no-unused-vars */
 
 class Profile extends Component {
@@ -10,8 +11,12 @@ class Profile extends Component {
     super(props);
     this.state = {
       creatingEvent: false,
-      showingMyEvents: true
+      showingMyEvents: true,
+      myEventsClass:"buttons-profile",
+      otherEventsClass:"none"
     };
+    this.buttonClickMyEvents = this.buttonClickMyEvents.bind(this);
+    this.buttonClickOtherEvents = this.buttonClickOtherEvents.bind(this);
   }
 
   toggleCreatingEvent() {
@@ -34,18 +39,54 @@ class Profile extends Component {
 
   renderEventCreation() {
   }
-
+  buttonClickMyEvents()
+  {
+    this.setState
+    ({
+      myEventsClass:"buttons-profile",
+      otherEventsClass:"none"
+    });
+  }
+  buttonClickOtherEvents()
+  {
+    this.setState
+    ({
+      myEventsClass:"none",
+      otherEventsClass:"buttons-profile"
+    });
+  }
   render() {
     return (
-      <div className='row'>
-        <div className="box events container-fluid">
-          <div className="col-md-3">
-            <img src="img/avatar/hombre1.png" alt="Profile picture" />
-          </div>
-          <div className="info col-md-6">
-            <h1>{Meteor.user().username}</h1>
-            <h2>Semestre</h2>
-            <h2>Carrera</h2>
+      <div >
+        <div className="container-fluid">
+          <div className ='row'>
+            <div className='col-md-1'></div>
+            <div className='col-md-10 box events'>
+              <div className='row'>
+                <div className="col-md-4">
+                  <img src="img/avatar/hombre1.png" alt="Profile picture" className='profile-pic'/>
+                </div>
+                <div className="info col-md-8">
+                  <h1>{Meteor.user().username}</h1>
+                  <h2>Semestre</h2>
+                  <h2>Carrera</h2>
+                </div>
+              </div>
+              <div className='row'>
+                <div className='col-md-1'></div>
+                <div className='col-md-10  box events profile-events'>
+                  <div className='row botones-perfil'>
+                    <ButtonGroup>
+                      <Button className={this.state.myEventsClass} onClick={this.buttonClickMyEvents}>Mis Eventos</Button>
+                      <Button className={this.state.otherEventsClass} onClick={this.buttonClickOtherEvents}>Eventos que te interesan</Button>
+                    </ButtonGroup>
+                    <ProfileList/>
+                  </div>
+                </div>
+                <div className='col-md-1'></div>
+              </div>
+            </div>
+            <div className='col-md-1'></div>
           </div>
         </div>
       </div>
