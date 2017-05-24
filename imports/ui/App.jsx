@@ -4,6 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Events } from '../api/events.js';
 import Navbar from './Navbar.jsx';
 import Event from './Event.jsx';
+import Landing from './Landing.jsx';
 import '../style/App.css';
 /* eslint-enable no-unused-vars */
 
@@ -15,9 +16,14 @@ class App extends Component {
         <div className='row'>
           <Navbar user={this.props.currentUser}/>
         </div>
+        {(this.props.currentUser)?
+          <div className="row">
+            {React.cloneElement(this.props.children, { events: this.props.events, user:this.props.currentUser})}
+          </div>
+        :
         <div className="row">
-          {React.cloneElement(this.props.children, { events: this.props.events, user:this.props.currentUser})}
-        </div>
+          <Landing/>
+        </div>}
       </div>
     );
   }
