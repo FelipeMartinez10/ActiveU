@@ -4,6 +4,7 @@ import '../imports/api/events.js';
 
 Meteor.startup(() => {
   // code to run on server at startup
+  process.env.MAIL_URL = "smtp://<MAIL_SERVER>:<Password>@smtp.mailgun.org:587";
 });
 
 Meteor.methods({
