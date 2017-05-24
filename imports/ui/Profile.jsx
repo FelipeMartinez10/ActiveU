@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import {Pagination, Button, ButtonGroup} from 'react-bootstrap';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Events } from '../api/events.js';
+import ProfileList from './ProfileList.jsx';
 /* eslint-enable no-unused-vars */
 
 class Profile extends Component {
@@ -10,8 +11,12 @@ class Profile extends Component {
     super(props);
     this.state = {
       creatingEvent: false,
-      showingMyEvents: true
+      showingMyEvents: true,
+      myEventsClass:"buttons-profile",
+      otherEventsClass:"none"
     };
+    this.buttonClickMyEvents = this.buttonClickMyEvents.bind(this);
+    this.buttonClickOtherEvents = this.buttonClickOtherEvents.bind(this);
   }
 
   toggleCreatingEvent() {
@@ -34,7 +39,22 @@ class Profile extends Component {
 
   renderEventCreation() {
   }
-
+  buttonClickMyEvents()
+  {
+    this.setState
+    ({
+      myEventsClass:"buttons-profile",
+      otherEventsClass:"none"
+    });
+  }
+  buttonClickOtherEvents()
+  {
+    this.setState
+    ({
+      myEventsClass:"none",
+      otherEventsClass:"buttons-profile"
+    });
+  }
   render() {
     return (
       <div >
@@ -55,13 +75,13 @@ class Profile extends Component {
               <div className='row'>
                 <div className='col-md-1'></div>
                 <div className='col-md-10  box events profile-events'>
-                  <div className='row'>
+                  <div className='row botones-perfil'>
                     <ButtonGroup>
-                      <Button>Mis Eventos</Button>
-                      <Button>Eventos a los que vas a asistir</Button>
+                      <Button className={this.state.myEventsClass} onClick={this.buttonClickMyEvents}>Mis Eventos</Button>
+                      <Button className={this.state.otherEventsClass} onClick={this.buttonClickOtherEvents}>Eventos que te interesan</Button>
                     </ButtonGroup>
+                    <ProfileList/>
                   </div>
-                  <div className='row'></div>
                 </div>
                 <div className='col-md-1'></div>
               </div>

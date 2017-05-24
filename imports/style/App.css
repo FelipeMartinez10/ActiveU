@@ -266,3 +266,17 @@ div #render-target
 {
   background-color: #f4f4f4
 }
+.botones-perfil
+{
+  margin-left: 0.5em;
+}
+.buttons-profile
+{
+  background-image: none;
+}
+.none{/*Used for profile buttons*/}
+.buttons-profile:focus
+{
+  background-color:white;
+}
+.none:focus{background-color:white;}
