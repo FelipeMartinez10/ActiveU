@@ -45,7 +45,7 @@ export default class Login extends Component {
     {
       if(err)
       {
-        console.log(err);
+        window.alert(err.reason)
       }
       else
       {
