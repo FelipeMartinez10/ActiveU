@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { Component, PropTypes } from 'react';
-import {Pagination, Button} from 'react-bootstrap';
+import {Pagination, Button, ButtonGroup} from 'react-bootstrap';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Events } from '../api/events.js';
 /* eslint-enable no-unused-vars */
@@ -51,6 +51,19 @@ class Profile extends Component {
                   <h2>Semestre</h2>
                   <h2>Carrera</h2>
                 </div>
+              </div>
+              <div className='row'>
+                <div className='col-md-1'></div>
+                <div className='col-md-10  box events profile-events'>
+                  <div className='row'>
+                    <ButtonGroup>
+                      <Button>Mis Eventos</Button>
+                      <Button>Eventos a los que vas a asistir</Button>
+                    </ButtonGroup>
+                  </div>
+                  <div className='row'></div>
+                </div>
+                <div className='col-md-1'></div>
               </div>
             </div>
             <div className='col-md-1'></div>
