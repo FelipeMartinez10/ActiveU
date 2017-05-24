@@ -20,9 +20,9 @@ class Profile extends Component {
     });
   }
 
-  toggleMyEvents() {
+  toggleMyEvents(b) {
     this.setState({
-      creatingEvent: !this.state.showingMyEvents
+      creatingEvent: b
     });
   }
 
