@@ -18,7 +18,7 @@ class Navegacion extends Component {
         <Navbar className="navbar-inverse">
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="/landing">ActiveU</a>
+              ActiveU
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
