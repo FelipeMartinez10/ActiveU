@@ -67,6 +67,7 @@ class Event extends Component {
   }
 
   changeDateFilter(date) {
+    date.setDate(date.getDate() + 1);
     this.setState({
       filterDate: date
     });
@@ -74,26 +75,26 @@ class Event extends Component {
 
   renderFiltros() {
     return (
-      <div className="row">
+      <div className="row filters">
         <div className="col-md-4">
-          <h4>Tipo</h4>
+          <h4 className="center">Tipo</h4>
           <input
             type="text"
             onChange={ e => this.changeTypeFilter(e.target.value) }
           />
         </div>
         <div className="col-md-4">
-          <h4># personas</h4>
+          <h4 className="center">Mínimo de personas</h4>
           <input
             type="number"
             onChange={ e => this.changeHowManyFilter(e.target.value) }
           />
         </div>
         <div className="col-md-4">
-          <h4>Fecha</h4>
+          <h4 className="center">Fecha</h4>
           <input
             type="date"
-            onChange={ e => this.changeDateFilter(e.target.value) }
+            onChange={ e => this.changeDateFilter(e.target.valueAsDate) }
           />
         </div>
       </div>
