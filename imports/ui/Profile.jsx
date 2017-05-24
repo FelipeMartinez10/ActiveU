@@ -13,7 +13,8 @@ class Profile extends Component {
       creatingEvent: false,
       showingMyEvents: true,
       myEventsClass:"buttons-profile",
-      otherEventsClass:"none"
+      otherEventsClass:"none",
+      current:"own"
     };
     this.buttonClickMyEvents = this.buttonClickMyEvents.bind(this);
     this.buttonClickOtherEvents = this.buttonClickOtherEvents.bind(this);
@@ -44,7 +45,8 @@ class Profile extends Component {
     this.setState
     ({
       myEventsClass:"buttons-profile",
-      otherEventsClass:"none"
+      otherEventsClass:"none",
+      current:"own"
     });
   }
   buttonClickOtherEvents()
@@ -52,7 +54,8 @@ class Profile extends Component {
     this.setState
     ({
       myEventsClass:"none",
-      otherEventsClass:"buttons-profile"
+      otherEventsClass:"buttons-profile",
+      current:"others"
     });
   }
   render() {
@@ -80,7 +83,7 @@ class Profile extends Component {
                       <Button className={this.state.myEventsClass} onClick={this.buttonClickMyEvents}>Mis Eventos</Button>
                       <Button className={this.state.otherEventsClass} onClick={this.buttonClickOtherEvents}>Eventos que te interesan</Button>
                     </ButtonGroup>
-                    <ProfileList/>
+                    <ProfileList ownEvents={this.props.ownEvents} otherEvents={this.props.otherEvents} currentList={this.state.current}/>
                   </div>
                 </div>
                 <div className='col-md-1'></div>
