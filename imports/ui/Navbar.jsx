@@ -6,7 +6,8 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 class Navegacion extends Component {
   render() {
-    const isLoggedin = (this.props.user !== null);
+    const isLoggedin = true;
+    //const isLoggedin = (this.props.user !== null);
     return (
       <div>
         <Navbar className="navbar-inverse">
@@ -25,10 +26,13 @@ class Navegacion extends Component {
                 <LinkContainer to="/perfil">
                   <NavItem eventKey={2}>Perfil</NavItem>
                 </LinkContainer>
+                <LinkContainer to="/login">
+                  <NavItem eventKey={3}>Log in</NavItem>
+                </LinkContainer>
               </Nav>
     :
               <Nav>
-                <LinkContainer to="/">
+                <LinkContainer to="/login">
                   <NavItem eventKey={3}>Log in</NavItem>
                 </LinkContainer>
               </Nav>}

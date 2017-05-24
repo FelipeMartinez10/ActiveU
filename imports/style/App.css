@@ -240,3 +240,7 @@ div #render-target
   display: -ms-flexbox;
   display:         flex;
 }
+.login-form
+{
+  text-align: center;
+}

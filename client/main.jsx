@@ -7,6 +7,7 @@ import App from '../imports/ui/App.jsx';
 import Event from '../imports/ui/Event.jsx';
 import Profile from '../imports/ui/Profile.jsx';
 import Landing from '../imports/ui/Landing.jsx';
+import Login from '../imports/ui/Login.jsx';
 /* eslint-enable no-unused-vars */
 
 Meteor.startup(() => {
@@ -16,6 +17,7 @@ Meteor.startup(() => {
       <Route path="eventos" component={Event} />
       <Route path="perfil" component={Profile} />
       <Route path="landing" component={Landing} />
+      <Route path="login" component={Login} />
     </Route>
   </Router>, document.getElementById('render-target'));
 });

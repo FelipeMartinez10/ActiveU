@@ -11,13 +11,14 @@ class App extends Component {
 
 
   render() {
+    let user = Meteor.user();
     return (
       <div className="container-fluid">
         <div className='row'>
           <Navbar/>
         </div>
         <div className="row">
-          {React.cloneElement(this.props.children, { events: this.props.events})}
+          {React.cloneElement(this.props.children, { events: this.props.events, user: user})}
         </div>
       </div>
     );
