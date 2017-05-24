@@ -92,7 +92,13 @@ export default class Login extends Component {
         }
         else
         {
-          self.context.router.push('/eventos');
+          Meteor.call( 'sendVerificationLink', ( error, response ) => {
+             if ( error ) {
+               console.log(error);
+             } else {
+               window.alert("Se ha enviado un email de confirmación. Revisa la carpeta de correo no deseado.")
+             }
+          });
         }
       });
     }

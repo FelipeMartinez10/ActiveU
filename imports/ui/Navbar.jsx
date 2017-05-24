@@ -7,7 +7,12 @@ import { LinkContainer } from 'react-router-bootstrap';
 class Navegacion extends Component {
 
   render() {
-    const isLoggedin = (this.props.user !== null);
+    let verified = false;
+    if(this.props.user)
+    {
+      verified = this.props.user.emails[0].verified;
+    }
+    const isLoggedin = (this.props.user !== null && verified);
     let username = '';
     if(this.props.user !== undefined && this.props.user !== null)
     {

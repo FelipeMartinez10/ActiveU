@@ -8,6 +8,7 @@ import Event from '../imports/ui/Event.jsx';
 import Profile from '../imports/ui/Profile.jsx';
 import Landing from '../imports/ui/Landing.jsx';
 import Login from '../imports/ui/Login.jsx';
+import Verify from '../imports/ui/Verify.jsx';
 /* eslint-enable no-unused-vars */
 
 Meteor.startup(() => {
@@ -18,5 +19,6 @@ Meteor.startup(() => {
       <Route path="perfil" component={Profile} />
       <Route path="landing" component={Landing} />
     </Route>
+    <Route path="/verify-email/:token" component={Verify}></Route>
   </Router>, document.getElementById('render-target'));
 });

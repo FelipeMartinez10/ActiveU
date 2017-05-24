@@ -11,12 +11,17 @@ import '../style/App.css';
 class App extends Component {
 
   render() {
+    let verified = false;
+    if(this.props.currentUser)
+    {
+      verified = this.props.currentUser.emails[0].verified;
+    }
     return (
       <div className="container-fluid">
         <div className='row'>
           <Navbar user={this.props.currentUser}/>
         </div>
-        {(this.props.currentUser)?
+        {(this.props.currentUser && verified)?
           <div className="row">
             {React.cloneElement(this.props.children, { events: this.props.events, user:this.props.currentUser})}
           </div>
