@@ -100,6 +100,6 @@ export default createContainer(() => {
   return {
     currentUser: Meteor.user(),
     ownEvents: Events.find({ owner: Meteor.userId() }).fetch(),
-    otherEvents: Events.find({ persons: { $all: [Meteor.user().username] } }).fetch()
+    otherEvents: Events.find({ people: { $all: [Meteor.user().username] } }).fetch()
   };
 }, Profile);

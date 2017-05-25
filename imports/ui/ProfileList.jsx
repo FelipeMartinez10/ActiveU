@@ -21,16 +21,11 @@ class ProfileList extends Component {
       whenDate: new Date()
     }
     this.handleChange = this.handleChange.bind(this);
-    this.renderOthersEvents = this.renderOthersEvents.bind(this);
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
     this.save = this.save.bind(this);
   }
 
-  renderOthersEvents()
-  {
-    console.log("holaaa");
-  }
   close() {
     this.setState({ showModal: false });
   }
@@ -87,6 +82,13 @@ class ProfileList extends Component {
         <i className="glyphicon glyphicon-asterisk"></i> {event.name}
       </ListGroupItem>);
     });
+    const renderOthersEvents = this.props.otherEvents.map((event, index)=>
+    {
+      return(
+      <ListGroupItem key={index}>
+        <i className="glyphicon glyphicon-ok"></i> {event.name}
+      </ListGroupItem>);
+    });
     const renderOptions = this.state.types.map((type,index) =>
     {
       return(<option value={type} key={index}>{type}</option>);
@@ -114,7 +116,7 @@ class ProfileList extends Component {
           :
           <ListGroup>
             {(othersNotEmpty)?
-              this.renderOthersEvents
+              renderOthersEvents
               :
               <ListGroupItem>
                 No te has interesado en ningún evento.

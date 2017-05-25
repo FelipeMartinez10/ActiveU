@@ -142,7 +142,7 @@ class Event extends Component {
           </div>
         </div>
         <div className='col-md-5'>
-          <p><i className="fa fa-user" aria-hidden="true"></i> {event.howMany} cupos</p>
+          <p><i className="fa fa-user" aria-hidden="true"></i> {event.people.length}/{event.howMany} cupos</p>
           <Button bsStyle="primary" onClick={this.handleDetailButton.bind(this, event)}>Detalles</Button>
         </div>
       </div>);
