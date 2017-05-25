@@ -77,7 +77,7 @@ class Event extends Component {
     }
   }
 
-  chageCuposFilter() {
+  changeCuposFilter() {
     this.setState({
       filterCupos: !this.state.filterCupos
     });
