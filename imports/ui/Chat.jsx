@@ -34,14 +34,14 @@ class Chat extends Component {
 
   render() {
     return this.state.hidden ? (
-      <div className="panel panel-primary">
+      <div className="chatbar panel panel-primary">
         <div className="panel-heading" id="accordion" onClick={ () => { this.toggleHidden(); } }>
           <span className="fa fa-comments"></span> Chat
           <span className="pull-right fa fa-caret-down"/>
         </div>
       </div>
     ) : (
-      <div className="panel panel-primary">
+      <div className="chatbar panel panel-primary">
         <div className="panel-heading" id="accordion">
           <span className="fa fa-comments"></span> Chat
           <span
