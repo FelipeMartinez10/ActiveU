@@ -103,12 +103,12 @@ class ProfileList extends Component {
               <div>
                 {renderOwnEvents}
                 <ListGroupItem onClick={this.open}>
-                  <i className="glyphicon glyphicon-plus"></i> Crea un Evento ya!
+                  <i className="glyphicon glyphicon-plus"></i> ¡Crea un Evento!
                 </ListGroupItem>
               </div>
               :
               <ListGroupItem onClick={this.open}>
-                <i className="glyphicon glyphicon-plus"></i> Crea un Evento ya!
+                <i className="glyphicon glyphicon-plus"></i> ¡Crea un Evento!
               </ListGroupItem>}
           </ListGroup>
           :
