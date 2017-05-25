@@ -19,7 +19,7 @@ Messages.deny({
 export const newMessage = new ValidatedMethod({
   name: 'messages.new',
   validate: new SimpleSchema({
-    event: { type: Object },
+    event: { type: String },
     text: { type: String },
   }).validator(),
   run({ event, text }) {
@@ -38,7 +38,7 @@ export const newMessage = new ValidatedMethod({
 export const removeMessage = new ValidatedMethod({
   name: 'messages.remove',
   validate: new SimpleSchema({
-    id: { type: Object }
+    id: { type: String }
   }).validator(),
   run({ id }) {
     if (!this.userId) {
