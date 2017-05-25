@@ -75,7 +75,7 @@ export const addPerson = new ValidatedMethod({
     }
     if(event.owner == this.userId)
     {
-      throw new Meteor.Error("owner can't subscribe to own event");
+      throw new Meteor.Error('owner can\'t subscribe to own event');
     }
     Events.update({ '_id': id }, {$push: { people: person }});
   }

@@ -26,7 +26,8 @@ class Event extends Component {
       selected: false,
       filterHowMany: 0,
       filterType: '',
-      filterDate: new Date(0)
+      filterDate: new Date(0),
+      filterCupos: false
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleDetailButton = this.handleDetailButton.bind(this);
@@ -76,28 +77,41 @@ class Event extends Component {
     }
   }
 
+  chageCuposFilter() {
+    this.setState({
+      filterCupos: !this.state.filterCupos
+    });
+  }
+
   renderFiltros() {
     return (
       <div className="row filters">
-        <div className="col-md-4">
+        <div className="col-md-3">
           <h4 className="text-center">Tipo</h4>
           <input
             type="text"
             onChange={ e => this.changeTypeFilter(e.target.value) }
           />
         </div>
-        <div className="col-md-4">
-          <h4 className="text-center">Mínimo de personas</h4>
+        <div className="col-md-3">
+          <h4 className="text-center">Personas</h4>
           <input
             type="number"
             onChange={ e => this.changeHowManyFilter(e.target.value) }
           />
         </div>
-        <div className="col-md-4">
+        <div className="col-md-3">
           <h4 className="text-center">Fecha</h4>
           <input
             type="date"
             onChange={ e => this.changeDateFilter(e.target.valueAsDate) }
+          />
+        </div>
+        <div className="col-md-1 col-md-offset-1">
+          <h4 className="text-center">Con cupos</h4>
+          <input
+            type="checkbox"
+            onChange={ () => this.changeCuposFilter() }
           />
         </div>
       </div>
@@ -107,9 +121,12 @@ class Event extends Component {
   render() {
     const eventSelected = this.state.selected;
     const events = this.props.events.filter( event => {
-      return event.type.toLowerCase().includes(this.state.filterType.toLowerCase()) &&
+      let check = event.type.toLowerCase().includes(this.state.filterType.toLowerCase()) &&
         event.howMany >= this.state.filterHowMany &&
         event.when >= this.state.filterDate;
+      let cupos = (event.howMany - event.people.length) > 0;
+      return this.state.filterCupos ? check && cupos : check;
+
     });
     const { currentPage, eventsPerPage } = this.state;
     const indexOfLastEvent = currentPage * eventsPerPage;
