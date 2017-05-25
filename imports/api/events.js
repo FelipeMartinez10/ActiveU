@@ -43,10 +43,23 @@ export const createEvent = new ValidatedMethod({
   }
 });
 
+export const deleteEvent = new ValidatedMethod({
+  name: 'events.delete',
+  validate: new SimpleSchema({
+    id: { type: String }
+  }).validator(),
+  run({ id }) {
+    if (!this.userId) {
+      throw new Meteor.Error('not-authorized');
+    }
+    return Events.remove({ '_id': id });
+  }
+});
+
 export const addPerson = new ValidatedMethod({
   name: 'events.addPerson',
   validate: new SimpleSchema({
-    id: { type: Number },
+    id: { type: String },
     person: { type: String }
   }).validator(),
   run({ id, person }) {
@@ -67,7 +80,7 @@ export const addPerson = new ValidatedMethod({
 export const removePerson = new ValidatedMethod({
   name: 'events.removePerson',
   validate: new SimpleSchema({
-    id: { type: Number },
+    id: { type: String },
     person: { type: String }
   }).validator(),
   run({ id, person }) {
