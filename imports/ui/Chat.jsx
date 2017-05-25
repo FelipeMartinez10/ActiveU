@@ -88,9 +88,8 @@ Chat.propTypes = {
   messages: PropTypes.array,
 };
 
-export default createContainer( props => {
+export default createContainer( () => {
   Meteor.subscribe('messages');
-  console.log(props.event);
   return {
     messages: Messages.find({}).fetch()
   };
