@@ -20,7 +20,7 @@ export const newMessage = new ValidatedMethod({
   name: 'messages.new',
   validate: new SimpleSchema({
     event: { type: String },
-    text: { type: String },
+    text: { type: String }
   }).validator(),
   run({ event, text }) {
     if (!this.userId) {

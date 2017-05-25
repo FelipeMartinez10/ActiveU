@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import {ListGroup, ListGroupItem, Modal, Button, ControlLabel, FormGroup, FormControl} from 'react-bootstrap/lib/';
-import { createEvent } from '../api/events.js'
+import { createEvent } from '../api/events.js';
+import Chat from './Chat.jsx';
 /* eslint-enable no-unused-vars */
 
 class ProfileList extends Component {
@@ -235,7 +236,11 @@ class ProfileList extends Component {
               </div>
             </div>
             <div className='row'>
-
+              <div className='col-md-1'></div>
+              <div className='col-md-10'>
+                <Chat event={this.state.selectedEvent.id}/>
+              </div>
+              <div className='col-md-1'></div>
             </div>
           </Modal.Body>
           <Modal.Footer>

@@ -47,9 +47,9 @@ export default class Detalles extends Component {
             </div>
           </div>
         </div>
-        <Chat
+        {/*<Chat
           event={this.props.id}
-        />
+        />*/}
       </div>
     );
   }

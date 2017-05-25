@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { Component, PropTypes } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Messages } from '../api/messages.js';
+import { Messages, newMessage } from '../api/messages.js';
 import { Meteor } from 'meteor/meteor';
 import { Button } from 'react-bootstrap';
+import ChatMsg from './ChatMsg.jsx';
 import '../style/Chat.css';
 /* eslint-enable no-unused-vars */
 
@@ -29,10 +30,28 @@ class Chat extends Component {
   }
 
   addComent() {
-    // console.log('adding comment: ' + this.state.comment);
+     newMessage.call( {event:this.props.event, text: this.state.comment},
+     (err, res) => {
+       if(err)
+       {
+         console.log(err);
+       }
+     });
+     this.setState(
+       {
+         comment:''
+       });
   }
 
   render() {
+    const renderMessages = this.props.messages.map( (msg, index) => {
+      return(
+        <ChatMsg
+          message={msg}
+          key={index}
+        />
+      );
+    });
     return this.state.hidden ? (
       <div className="chatbar panel panel-primary">
         <div className="panel-heading" id="accordion" onClick={ () => { this.toggleHidden(); } }>
@@ -51,13 +70,7 @@ class Chat extends Component {
         </div>
         <div className="panel-body">
           <ul className="chat">
-          {
-            this.props.messages.map( (msg) => {
-              <ChatMsg
-                message={msg}
-              />;
-            })
-          }
+          {renderMessages}
           </ul>
         </div>
         <div className="panel-footer">

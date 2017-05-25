@@ -20,13 +20,13 @@ export default class ChatMsg extends Component {
         </span>
         <div className="chat-body clearfix">
           <div className="header">
-            <strong className="primary-font">Jack Sparrow</strong>
+            <strong className="primary-font">{this.props.message.user}</strong>
             <small className="pull-right text-muted">
               <span className="glyphicon glyphicon-time" />
               12 mins ago
             </small>
           </div>
-          <p></p>
+          <p>{this.props.message.text}</p>
         </div>
       </li>
     );
