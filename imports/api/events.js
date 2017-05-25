@@ -77,8 +77,7 @@ export const addPerson = new ValidatedMethod({
     {
       throw new Meteor.Error("owner can't subscribe to own event");
     }
-    let newHowMany = event.howMany -1;
-    Events.update({ '_id': id }, {$push: { people: person }, $set: {howMany: newHowMany}});
+    Events.update({ '_id': id }, {$push: { people: person }});
   }
 });
 
