@@ -3,9 +3,26 @@ import React, {Component} from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Button } from 'react-bootstrap';
 import Chat from './Chat.jsx';
+import { addPerson } from '../api/events.js'
 /* eslint-enable no-unused-vars */
 
 export default class Detalles extends Component {
+  constructor(props)
+  {
+    super(props);
+
+    this.handleButton= this.handleButton.bind(this);
+  }
+  handleButton()
+  {
+    addPerson.call( {id:this.props.id, person: Meteor.user().username},
+    (err, res) => {
+      if(err)
+      {
+        console.log(err);
+      }
+    });
+  }
   render() {
     return (
       <div>
@@ -25,7 +42,7 @@ export default class Detalles extends Component {
               <p>{this.props.description}</p>
             </div>
             <div className='row details-button'>
-              <Button bsStyle="success">¡Me interesa! <i className="fa fa-check-circle" aria-hidden="true"></i>
+              <Button bsStyle="success" onClick={this.handleButton}>¡Me interesa! <i className="fa fa-check-circle" aria-hidden="true"></i>
               </Button>
             </div>
           </div>

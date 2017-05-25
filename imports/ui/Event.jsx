@@ -14,6 +14,7 @@ class Event extends Component {
       currentPage: 1,
       eventsPerPage: 4,
       selectedEvent: {
+        id:'',
         name:'',
         description:'',
         day:'',
@@ -42,7 +43,7 @@ class Event extends Component {
     const day = evento.when.getDate();
     const month = evento.when.getMonth();
     let newEvent = {
-      id: evento._id._str,
+      id: evento._id,
       name: evento.name,
       description: evento.description,
       day: day,

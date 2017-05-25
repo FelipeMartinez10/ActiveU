@@ -73,7 +73,12 @@ export const addPerson = new ValidatedMethod({
     if (event.people.length >= event.howMany) {
       throw new Meteor.Error('event full');
     }
-    Events.update({ '_id': id }, { $push: { people: person } });
+    if(event.owner == this.userId)
+    {
+      throw new Meteor.Error("owner can't subscribe to own event");
+    }
+    let newHowMany = event.howMany -1;
+    Events.update({ '_id': id }, {$push: { people: person }, $set: {howMany: newHowMany}});
   }
 });
 
