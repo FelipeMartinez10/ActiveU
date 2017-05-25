@@ -26,6 +26,7 @@ export default class Login extends Component {
     this.handleKeyLogin = this.handleKeyLogin.bind(this);
     this.handleKeySignUp = this.handleKeySignUp.bind(this);
   }
+
   handleKeyLogin(e) {
     if(e.key ==='Enter')
     {
@@ -38,16 +39,19 @@ export default class Login extends Component {
       this.signUp();
     }
   }
+
   showSignUpForm() {
     this.setState({
       showSignUp:true
     });
   }
+
   showLoginForm() {
     this.setState({
       showSignUp:false
     });
   }
+
   login() {
     let self = this;
     Meteor.loginWithPassword({email: this.state.emailLogin}, this.state.passwordLogin, function(err)  {
@@ -58,6 +62,7 @@ export default class Login extends Component {
       }
     }, this);
   }
+
   loginOut() {
     Meteor.logout(function(err) {
       if(err) {
@@ -65,27 +70,34 @@ export default class Login extends Component {
       }
     });
   }
+
   signUp() {
+    const email = /(\S+)\@(\S+)(\.)(\S+)/;
     let self = this;
-    if(this.state.passwordSignUp == this.state.rePasswordSignUp) {
-      Accounts.createUser({username: this.state.usernameSignUp, email: this.state.emailSignUp, password: this.state.passwordSignUp},function(err) {
-        if(err) {
-          window.alert(err.reason);
-        } else {
-          Meteor.call( 'sendVerificationLink', ( error, response ) => {
-            if ( error ) {
-              console.log(error);
-            } else {
-              window.alert('Se ha enviado un email de confirmación. Revisa la carpeta de correo no deseado.')
-            }
-          });
-        }
-      });
-    }
-    else {
-      window.alert('Las contraseñas no coinciden');
+    if(email.test(this.state.emailSignUp)) {
+      if(this.state.passwordSignUp == this.state.rePasswordSignUp) {
+        Accounts.createUser({username: this.state.usernameSignUp, email: this.state.emailSignUp, password: this.state.passwordSignUp},function(err) {
+          if(err) {
+            window.alert(err.reason);
+          } else {
+            Meteor.call( 'sendVerificationLink', ( error, response ) => {
+              if ( error ) {
+                console.log(error);
+              } else {
+                window.alert('Se ha enviado un email de confirmación. Revisa la carpeta de correo no deseado.')
+              }
+            });
+          }
+        });
+      }
+      else {
+        window.alert('Las contraseñas no coinciden');
+      }
+    } else {
+      window.alert('Email inválido');
     }
   }
+
   handleChange(event) {
     if(event.target.name == 'email') {
       this.setState({emailLogin: event.target.value});
@@ -171,38 +183,57 @@ export default class Login extends Component {
               <h2>Inicia Sesión:</h2>
               <form>
                 <div className="row">
-      						<div className="col-sm-12 col-md-10  col-md-offset-1 ">
-      							<div className="form-group">
-      								<div className="input-group">
-      									<span className="input-group-addon">
-      										<i className="glyphicon glyphicon-envelope"></i>
-      									</span>
-      									<input className="form-control" placeholder="Email" type="email" name='email'
-                          value={this.state.emailLogin} onChange={this.handleChange} onKeyPress={this.handleKeyLogin}></input>
-      								</div>
-      							</div>
-      							<div className="form-group">
-      								<div className="input-group">
-      									<span className="input-group-addon">
-      										<i className="glyphicon glyphicon-lock"></i>
-      									</span>
-      									<input className="form-control" placeholder="Contraseña" type="password" name='password'
-                          value={this.state.passwordLogin} onChange={this.handleChange} onKeyPress={this.handleKeyLogin}></input>
-      								</div>
-      							</div>
-      							<div className="form-group">
-      								  <Button bsStyle="primary" onClick={this.login}>Ingresar</Button>
+                  <div className="col-sm-12 col-md-10  col-md-offset-1 ">
+                    <div className="form-group">
+                      <div className="input-group">
+                        <span className="input-group-addon">
+                          <i className="glyphicon glyphicon-envelope"></i>
+                        </span>
+                        <input
+                          className="form-control"
+                          placeholder="Email"
+                          type="email"
+                          name='email'
+                          value={this.state.emailLogin}
+                          onChange={this.handleChange}
+                          onKeyPress={this.handleKeyLogin}
+                        />
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <div className="input-group">
+                          <span className="input-group-addon">
+                            <i className="glyphicon glyphicon-lock"></i>
+                          </span>
+                          <input
+                            className="form-control"
+                            placeholder="Contraseña"
+                            type="password"
+                            name='password'
+                            value={this.state.passwordLogin}
+                            onChange={this.handleChange}
+                            onKeyPress={this.handleKeyLogin}
+                          />
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <Button
+                          bsStyle="primary"
+                          onClick={this.login}
+                        >
+                          Ingresar
+                        </Button>
                         <p>¿No tienes cuenta? <a onClick={this.showSignUpForm} className='clickable'>¡Regístrate!</a></p>
                         {/*<Button bsStyle="primary" onClick={this.loginOut}>Cerrar Sesión</Button>*/}
-      							</div>
-      						</div>
-      					</div>
-              </form>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div className='col-md-4'></div>
             </div>
-            <div className='col-md-4'></div>
-      		</div>
         }
-      </div>
+        </div>
     );
   }
 }
