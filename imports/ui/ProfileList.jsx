@@ -18,16 +18,32 @@ class ProfileList extends Component {
       description:"",
       when: "",
       howMany: "",
-      whenDate: new Date()
+      whenDate: new Date(),
+      showModalOptions: false,
+      selectedEvent: {
+        id:'',
+        name:'',
+        description:'',
+        month: '',
+        day:'',
+        howMany:'',
+        type:'',
+        place:''
+      }
     }
     this.handleChange = this.handleChange.bind(this);
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
     this.save = this.save.bind(this);
+    this.openEventOptions = this.openEventOptions.bind(this);
+    this.closeEventOptions = this.closeEventOptions.bind(this);
   }
 
   close() {
     this.setState({ showModal: false });
+  }
+  closeEventOptions() {
+    this.setState({ showModalOptions: false });
   }
   save()
   {
@@ -43,6 +59,22 @@ class ProfileList extends Component {
   }
   open() {
     this.setState({ showModal: true });
+  }
+  openEventOptions(event) {
+    const monthNames = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN','JUL', 'AGO',
+      'SEP', 'OCT', 'NOV', 'DIC'];
+    const month = monthNames[event.when.getMonth()];
+    let newEvent = {
+      id: event._id,
+      name: event.name,
+      description: event.description,
+      month: month,
+      day: event.when.getDate(),
+      howMany: event.howMany,
+      type: event.type,
+      place: event.place
+    };
+    this.setState({ selectedEvent: newEvent,showModalOptions: true });
   }
   handleChange(event)
   {
@@ -78,14 +110,14 @@ class ProfileList extends Component {
     const renderOwnEvents = this.props.ownEvents.map((event, index)=>
     {
       return(
-      <ListGroupItem key={index}>
+      <ListGroupItem key={index} onClick={this.openEventOptions.bind(this, event)}>
         <i className="glyphicon glyphicon-asterisk"></i> {event.name}
       </ListGroupItem>);
     });
     const renderOthersEvents = this.props.otherEvents.map((event, index)=>
     {
       return(
-      <ListGroupItem key={index}>
+      <ListGroupItem key={index} onClick={this.openEventOptions.bind(this, event)}>
         <i className="glyphicon glyphicon-ok"></i> {event.name}
       </ListGroupItem>);
     });
@@ -185,7 +217,31 @@ class ProfileList extends Component {
               <Button onClick={this.close}>Cerrar</Button>
             </Modal.Footer>
         </Modal>
+        <Modal show={this.state.showModalOptions} onHide={this.closeEventOptions}>
+          <Modal.Header closeButton>
+            <Modal.Title>Detalles del Evento:</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h4>{this.state.selectedEvent.name}</h4>
+            <div className='row'>
+              <div className='col-md-4'>
+                  <p><i className="glyphicon glyphicon-map-marker"></i> Lugar: {this.state.selectedEvent.place}</p>
+              </div>
+              <div className='col-md-4'>
+                  <p><i className="glyphicon glyphicon-calendar"></i> Cuando: {this.state.selectedEvent.day} {this.state.selectedEvent.month}</p>
+              </div>
+              <div className='col-md-4'>
+                  <p><i className="glyphicon glyphicon-sunglasses"></i> Tipo: {this.state.selectedEvent.type}</p>
+              </div>
+            </div>
+            <div className='row'>
 
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.closeEventOptions}>Cerrar</Button>
+          </Modal.Footer>
+      </Modal>
       </div>
     );
   }
