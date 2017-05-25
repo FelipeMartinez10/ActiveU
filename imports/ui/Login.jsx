@@ -9,12 +9,12 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      emailLogin: "",
-      passwordLogin:"",
-      emailSignUp:"",
-      passwordSignUp:"",
-      rePasswordSignUp:"",
-      usernameSignUp:"",
+      emailLogin: '',
+      passwordLogin:'',
+      emailSignUp:'',
+      passwordSignUp:'',
+      rePasswordSignUp:'',
+      usernameSignUp:'',
       showSignUp: false
     };
     this.login = this.login.bind(this);
@@ -26,110 +26,83 @@ export default class Login extends Component {
     this.handleKeyLogin = this.handleKeyLogin.bind(this);
     this.handleKeySignUp = this.handleKeySignUp.bind(this);
   }
-  handleKeyLogin(e)
-  {
+  handleKeyLogin(e) {
     if(e.key ==='Enter')
     {
       this.login();
     }
   }
-  handleKeySignUp(e)
-  {
-    if(e.key ==='Enter')
-    {
+
+  handleKeySignUp(e) {
+    if(e.key ==='Enter') {
       this.signUp();
     }
   }
-  showSignUpForm()
-  {
-    this.setState(
-      {
-        showSignUp:true
-      });
+  showSignUpForm() {
+    this.setState({
+      showSignUp:true
+    });
   }
-  showLoginForm()
-  {
-    this.setState(
-      {
-        showSignUp:false
-      });
+  showLoginForm() {
+    this.setState({
+      showSignUp:false
+    });
   }
-  login()
-  {
+  login() {
     let self = this;
-    Meteor.loginWithPassword({email: this.state.emailLogin}, this.state.passwordLogin, function(err)
-    {
-      if(err)
-      {
-        window.alert(err.reason)
-      }
-      else
-      {
+    Meteor.loginWithPassword({email: this.state.emailLogin}, this.state.passwordLogin, function(err)  {
+      if(err) {
+        window.alert(err.reason);
+      } else {
         self.context.router.push('/eventos');
       }
-    },this);
+    }, this);
   }
-  loginOut()
-  {
-    Meteor.logout(function(err)
-    {
-      if(err)
-      {
+  loginOut() {
+    Meteor.logout(function(err) {
+      if(err) {
         console.log(err);
       }
     });
   }
-  signUp()
-  {
+  signUp() {
     let self = this;
-    if(this.state.passwordSignUp == this.state.rePasswordSignUp)
-    {
-      Accounts.createUser({username: this.state.usernameSignUp, email: this.state.emailSignUp, password: this.state.passwordSignUp},function(err)
-      {
-        if(err)
-        {
+    if(this.state.passwordSignUp == this.state.rePasswordSignUp) {
+      Accounts.createUser({username: this.state.usernameSignUp, email: this.state.emailSignUp, password: this.state.passwordSignUp},function(err) {
+        if(err) {
           window.alert(err.reason);
-        }
-        else
-        {
+        } else {
           Meteor.call( 'sendVerificationLink', ( error, response ) => {
-             if ( error ) {
-               console.log(error);
-             } else {
-               window.alert("Se ha enviado un email de confirmación. Revisa la carpeta de correo no deseado.")
-             }
+            if ( error ) {
+              console.log(error);
+            } else {
+              window.alert('Se ha enviado un email de confirmación. Revisa la carpeta de correo no deseado.')
+            }
           });
         }
       });
     }
-    else
-    {
-      window.alert("Las contraseñas no coinciden");
+    else {
+      window.alert('Las contraseñas no coinciden');
     }
   }
   handleChange(event) {
-    if(event.target.name == "email")
-    {
+    if(event.target.name == 'email') {
       this.setState({emailLogin: event.target.value});
     }
-    if(event.target.name == "password")
-    {
+    if(event.target.name == 'password') {
       this.setState({passwordLogin: event.target.value});
     }
-    if(event.target.name == "emailSignUp")
-    {
+    if(event.target.name == 'emailSignUp') {
       this.setState({emailSignUp: event.target.value});
     }
-    if(event.target.name == "passwordSignUp")
-    {
+    if(event.target.name == 'passwordSignUp') {
       this.setState({passwordSignUp: event.target.value});
     }
-    if(event.target.name == "rePasswordSignUp")
-    {
+    if(event.target.name == 'rePasswordSignUp') {
       this.setState({rePasswordSignUp: event.target.value});
     }
-    if(event.target.name == "usernameSignUp")
-    {
+    if(event.target.name == 'usernameSignUp') {
       this.setState({usernameSignUp: event.target.value});
     }
   }
@@ -235,4 +208,4 @@ export default class Login extends Component {
 }
 Login.contextTypes = {
   router: React.PropTypes.object
-}
+};
