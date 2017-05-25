@@ -32,14 +32,6 @@ class Profile extends Component {
     });
   }
 
-  renderInfo() {
-  }
-
-  renderEvents() {
-  }
-
-  renderEventCreation() {
-  }
   buttonClickMyEvents()
   {
     this.setState
@@ -107,7 +99,7 @@ export default createContainer(() => {
   Meteor.subscribe('events');
   return {
     currentUser: Meteor.user(),
-    ownEvents: Events.find({ user: Meteor.userId() }).fetch(),
+    ownEvents: Events.find({ owner: Meteor.userId() }).fetch(),
     otherEvents: Events.find({ persons: { $all: [Meteor.user().username] } }).fetch()
   };
 }, Profile);

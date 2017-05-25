@@ -21,20 +21,12 @@ class ProfileList extends Component {
       whenDate: new Date()
     }
     this.handleChange = this.handleChange.bind(this);
-    this.renderOwnEvents = this.renderOwnEvents.bind(this);
     this.renderOthersEvents = this.renderOthersEvents.bind(this);
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
     this.save = this.save.bind(this);
   }
-  renderOwnEvents()
-  {
-    console.log("holaaa");
-    return(
-    <ListGroupItem onClick={this.open}>
-      <i className="glyphicon glyphicon-plus"></i> Crea un Evento ya!
-    </ListGroupItem>);
-  }
+
   renderOthersEvents()
   {
     console.log("holaaa");
@@ -50,7 +42,7 @@ class ProfileList extends Component {
       if(err)
       {
         console.log(err);
-      }  
+      }
     });
     this.setState({ showModal: false });
   }
@@ -88,6 +80,13 @@ class ProfileList extends Component {
     }
   }
   render() {
+    const renderOwnEvents = this.props.ownEvents.map((event, index)=>
+    {
+      return(
+      <ListGroupItem key={index}>
+        <i className="glyphicon glyphicon-asterisk"></i> {event.name}
+      </ListGroupItem>);
+    });
     const renderOptions = this.state.types.map((type,index) =>
     {
       return(<option value={type} key={index}>{type}</option>);
@@ -101,7 +100,12 @@ class ProfileList extends Component {
           ?
           <ListGroup>
             {(ownNotEmpty)?
-              this.renderOwnEvents
+              <div>
+                {renderOwnEvents}
+                <ListGroupItem onClick={this.open}>
+                  <i className="glyphicon glyphicon-plus"></i> Crea un Evento ya!
+                </ListGroupItem>
+              </div>
               :
               <ListGroupItem onClick={this.open}>
                 <i className="glyphicon glyphicon-plus"></i> Crea un Evento ya!
