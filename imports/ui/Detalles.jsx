@@ -3,21 +3,20 @@ import React, {Component} from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Button, Modal } from 'react-bootstrap';
 import Chat from './Chat.jsx';
-import { addPerson } from '../api/events.js'
+import { addPerson } from '../api/events.js';
 /* eslint-enable no-unused-vars */
 
 export default class Detalles extends Component {
-  constructor(props)
-  {
+  constructor(props) {
     super(props);
-
+    this.state =
+    {
+      userInEvent: this.props.people.includes(Meteor.user().username),
+      show:false
+    }
     this.handleButton= this.handleButton.bind(this);
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
-    this.state =
-    {
-      show:false
-    }
   }
   close()
   {
@@ -27,13 +26,9 @@ export default class Detalles extends Component {
   {
     this.setState({ show: true });
   }
-  handleButton()
-  {
-    var self = this;
-    addPerson.call( {id:this.props.id, person: Meteor.user().username},
-    (err, res) => {
-      if(err)
-      {
+  handleButton() {
+    addPerson.call( {id:this.props.id, person: Meteor.user().username}, (err, res) => {
+      if(err) {
         console.log(err);
       }
       else
@@ -41,7 +36,11 @@ export default class Detalles extends Component {
         this.open();
       }
     });
+    this.setState({
+      userInEvent: this.props.people.includes(Meteor.user().username)
+    });
   }
+
   render() {
     return (
       <div>
@@ -61,8 +60,24 @@ export default class Detalles extends Component {
               <p>{this.props.description}</p>
             </div>
             <div className='row details-button'>
-              <Button bsStyle="success" onClick={this.handleButton}>¡Me interesa! <i className="fa fa-check-circle" aria-hidden="true"></i>
-              </Button>
+            {
+              this.state.userInEvent ? (
+                <Button
+                  bsStyle="default"
+                  disabled
+                >
+                  Interesado
+                </Button>
+              ) : (
+                <Button
+                  bsStyle="success"
+                  onClick={this.handleButton}
+                >
+                  ¡Me interesa!
+                  <i className="fa fa-check-circle" aria-hidden="true" />
+                </Button>
+              )
+            }
             </div>
           </div>
         </div>

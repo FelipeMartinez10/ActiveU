@@ -21,7 +21,8 @@ class Event extends Component {
         month:'',
         howMany:'',
         type:'',
-        place:''
+        place:'',
+        people: []
       },
       selected: false,
       filterHowMany: 0,
@@ -51,7 +52,8 @@ class Event extends Component {
       month: month,
       howMany: evento.howMany,
       type: evento.type,
-      place: evento.place
+      place: evento.place,
+      people: evento.people
     };
     this.setState({selectedEvent: newEvent, selected: true});
   }
@@ -185,6 +187,7 @@ class Event extends Component {
                 howMany={this.state.selectedEvent.howMany}
                 type={this.state.selectedEvent.type}
                 place={this.state.selectedEvent.place}
+                people={this.state.selectedEvent.people}
               />
                :
                <div className='selectSomething'>

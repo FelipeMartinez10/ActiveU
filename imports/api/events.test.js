@@ -87,7 +87,7 @@ if (Meteor.isServer) {
 
         // Verify that the method does what we expected
         let eventId = Events.find().fetch()[0]._id;
-        addPerson.apply(invocation, [{ id: eventId, person: 'nicolas' }]);
+        addPerson.apply(invocation, [{ id: eventId, person: 'amigo1' }]);
         assert.equal(Events.find().count(), 1);
         assert.equal(Events.find().fetch()[0].people.length, 1);
         assert.equal(Events.find().fetch()[0].people[0], 'nicolas');
@@ -113,7 +113,7 @@ if (Meteor.isServer) {
         assert.equal(Events.find().fetch()[0].people.length, 2);
 
         // Verify that the method does what we expected
-        rmPerson.apply(invocation, [{ id: eventId, person: 'nicolas' }]);
+        rmPerson.apply(invocation, [{ id: eventId, person: 'amigo1' }]);
         assert.equal(Events.find().count(), 1);
         // assert.equal(Events.find().fetch()[0].people.length, 1);
         // assert.equal(Events.find().fetch()[0].people[0], 'felipe');
