@@ -29,7 +29,7 @@ class Chat extends Component {
     });
   }
 
-  addComent() {
+  addComment() {
     newMessage.call( {event:this.props.event, text: this.state.comment}, (err, res) => {
       if(err) {
         console.log(err);
@@ -87,7 +87,7 @@ class Chat extends Component {
             <span className="input-group-btn">
               <button
                 className="btn btn-warning btn-sm"
-                onClick={ () => this.addComent() }
+                onClick={ () => this.addComment() }
               >
                 Send
               </button>
