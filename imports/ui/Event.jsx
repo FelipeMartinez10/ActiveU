@@ -46,6 +46,7 @@ class Event extends Component {
     const month = evento.when.getMonth();
     let newEvent = {
       id: evento._id,
+      owner: evento.owner,
       name: evento.name,
       description: evento.description,
       day: day,
@@ -123,10 +124,12 @@ class Event extends Component {
   render() {
     const eventSelected = this.state.selected;
     const events = this.props.events.filter( event => {
+      let owner = event.owner === Meteor.userId();
+      let cupos = (event.howMany - event.people.length) > 0;
       let check = event.type.toLowerCase().includes(this.state.filterType.toLowerCase()) &&
         event.howMany >= this.state.filterHowMany &&
-        event.when >= this.state.filterDate;
-      let cupos = (event.howMany - event.people.length) > 0;
+        event.when >= this.state.filterDate &&
+        !owner;
       return this.state.filterCupos ? check && cupos : check;
 
     });
