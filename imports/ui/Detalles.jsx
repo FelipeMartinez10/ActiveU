@@ -9,6 +9,9 @@ import { addPerson } from '../api/events.js';
 export default class Detalles extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      userInEvent: this.props.people.includes(Meteor.user().username)
+    };
     this.handleButton = this.handleButton.bind(this);
   }
 
@@ -17,6 +20,9 @@ export default class Detalles extends Component {
       if(err) {
         console.log(err);
       }
+    });
+    this.setState({
+      userInEvent: this.props.people.includes(Meteor.user().username)
     });
   }
 
@@ -39,8 +45,24 @@ export default class Detalles extends Component {
               <p>{this.props.description}</p>
             </div>
             <div className='row details-button'>
-              <Button bsStyle="success" onClick={this.handleButton}>¡Me interesa! <i className="fa fa-check-circle" aria-hidden="true"></i>
-              </Button>
+            {
+              this.state.userInEvent ? (
+                <Button
+                  bsStyle="default"
+                  disabled
+                >
+                  Interesado
+                </Button>
+              ) : (
+                <Button
+                  bsStyle="success"
+                  onClick={this.handleButton}
+                >
+                  ¡Me interesa!
+                  <i className="fa fa-check-circle" aria-hidden="true" />
+                </Button>
+              )
+            }
             </div>
           </div>
         </div>

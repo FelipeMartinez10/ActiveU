@@ -77,8 +77,7 @@ export const addPerson = new ValidatedMethod({
     if (event.people.length >= event.howMany) {
       throw new Meteor.Error('event full');
     }
-    if(event.owner == this.userId)
-    {
+    if(event.owner == this.userId) {
       throw new Meteor.Error('owner can\'t subscribe to own event');
     }
     Events.update({ '_id': id }, {$push: { people: person }});
@@ -102,8 +101,7 @@ export const removePerson = new ValidatedMethod({
     if (event.people.length <= 0) {
       throw new Meteor.Error('event empty');
     }
-    if(event.owner == this.userId)
-    {
+    if(event.owner == this.userId) {
       throw new Meteor.Error('owner can\'t be removed from own event');
     }
     Events.update({ '_id': id }, { $pull: { people: person } });
