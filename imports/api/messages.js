@@ -28,7 +28,7 @@ export const newMessage = new ValidatedMethod({
     }
     return Messages.insert({
       event,
-      user: this.userId,
+      user: Meteor.user().username,
       time: new Date(),
       text
     });
