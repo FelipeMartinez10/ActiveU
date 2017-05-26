@@ -29,18 +29,16 @@ class Chat extends Component {
     });
   }
 
-  addComent() {
-     newMessage.call( {event:this.props.event, text: this.state.comment},
-     (err, res) => {
-       if(err)
-       {
-         console.log(err);
-       }
-     });
-     this.setState(
-       {
-         comment:''
-       });
+  addComment() {
+    newMessage.call( {event:this.props.event, text: this.state.comment}, (err, res) => {
+      if(err) {
+        console.log(err);
+      }
+    });
+    this.setState({
+      comment:''
+    });
+    document.getElementById('btn-input').value = '';
   }
 
   render() {
@@ -80,11 +78,16 @@ class Chat extends Component {
               className="form-control input-sm"
               placeholder="Escribe tu mensaje..."
               onChange={ (e) => this.updateComment(e.target.value) }
+              onKeyDown={ (e) => {
+                if(e.keyCode === 13) {
+                  this.addComment();
+                }
+              }}
             />
             <span className="input-group-btn">
               <button
                 className="btn btn-warning btn-sm"
-                onClick={ () => this.addComent() }
+                onClick={ () => this.addComment() }
               >
                 Send
               </button>
