@@ -23,22 +23,47 @@ export default class ChatMsg extends Component {
   }
 
   render() {
+    let u = Meteor.user().username === this.props.message.user;
+    let spanClass = 'chat-img pull-right';
+    let imgSrc = 'http://placehold.it/50/55C1E7/fff&text=' + this.props.message.user.toString().charAt(0);
+    let pClass = 'pull-right';
+    if(u) {
+      spanClass = 'chat-img pull-left';
+      imgSrc = 'http://placehold.it/50/FA6F57/fff&text=TU';
+      pClass = '';
+    }
     return (
       <li className="left clearfix">
-        <span className="chat-img pull-left">
-          <img src={'http://placehold.it/50/55C1E7/fff&text=' + this.props.message.user.toString().charAt(0)} alt="User Avatar" className="img-circle" />
+        <span className={spanClass}>
+          <img src={imgSrc} alt="User Avatar" className="img-circle" />
         </span>
         <div className="chat-body clearfix">
           <div className="header">
-            <strong className="primary-font">{this.props.message.user}</strong>
-            <small className="pull-right text-muted">
-              <span className="glyphicon glyphicon-time" />
-              {this.getDateString()}
-            </small>
-          </div>
-          <p>{this.props.message.text}</p>
+          {
+            u ? (
+              <div className="header">
+                <small className="pull-right text-muted">
+                  <span className="glyphicon glyphicon-time"></span>
+                  {this.getDateString()}
+                </small>
+                <strong className="primary-font">
+                  {this.props.message.user}
+                </strong>
+              </div>
+            ) : (
+              <div className="header">
+                <strong className="pull-right primary-font">{this.props.message.user}</strong>
+                <small className="text-muted">
+                  <span className="glyphicon glyphicon-time" />
+                  {this.getDateString()}
+                </small>
+              </div>
+            )
+          }
         </div>
-      </li>
+        <p className={pClass}>{this.props.message.text}</p>
+      </div>
+    </li>
     );
   }
 }
