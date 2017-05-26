@@ -3,26 +3,23 @@ import React, {Component} from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Button } from 'react-bootstrap';
 import Chat from './Chat.jsx';
-import { addPerson } from '../api/events.js'
+import { addPerson } from '../api/events.js';
 /* eslint-enable no-unused-vars */
 
 export default class Detalles extends Component {
-  constructor(props)
-  {
+  constructor(props) {
     super(props);
-
-    this.handleButton= this.handleButton.bind(this);
+    this.handleButton = this.handleButton.bind(this);
   }
-  handleButton()
-  {
-    addPerson.call( {id:this.props.id, person: Meteor.user().username},
-    (err, res) => {
-      if(err)
-      {
+
+  handleButton() {
+    addPerson.call( {id:this.props.id, person: Meteor.user().username}, (err, res) => {
+      if(err) {
         console.log(err);
       }
     });
   }
+
   render() {
     return (
       <div>
