@@ -42,7 +42,10 @@ class Chat extends Component {
   }
 
   render() {
-    const renderMessages = this.props.messages.map( (msg, index) => {
+    const renderMessages = this.props.messages.filter( msg => {
+      console.log(msg.event + ' - ' + this.props.event);
+      return msg.event === this.props.event;
+    }).map( (msg, index) => {
       return(
         <ChatMsg
           message={msg}
@@ -107,6 +110,6 @@ Chat.propTypes = {
 export default createContainer( () => {
   Meteor.subscribe('messages');
   return {
-    messages: Messages.find({}).fetch()
+    messages: Messages.find().fetch()
   };
 }, Chat);
