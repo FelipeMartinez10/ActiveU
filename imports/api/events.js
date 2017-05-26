@@ -52,6 +52,10 @@ export const deleteEvent = new ValidatedMethod({
     if (!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
+    let event = Events.findOne({'_id': id});
+    if (this.userId !== event.owner) {
+      throw new Meteor.Error('not-authorized');
+    }
     return Events.remove({ '_id': id });
   }
 });
@@ -97,6 +101,10 @@ export const removePerson = new ValidatedMethod({
     }
     if (event.people.length <= 0) {
       throw new Meteor.Error('event empty');
+    }
+    if(event.owner == this.userId)
+    {
+      throw new Meteor.Error('owner can\'t be removed from own event');
     }
     Events.update({ '_id': id }, { $pull: { people: person } });
   }

@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import {ListGroup, ListGroupItem, Modal, Button, ControlLabel, FormGroup, FormControl} from 'react-bootstrap/lib/';
-import { createEvent } from '../api/events.js';
+import { createEvent, deleteEvent, removePerson } from '../api/events.js';
 import Chat from './Chat.jsx';
+import { Meteor } from 'meteor/meteor';
 /* eslint-enable no-unused-vars */
 
 class ProfileList extends Component {
@@ -21,6 +22,7 @@ class ProfileList extends Component {
       howMany: "",
       whenDate: new Date(),
       showModalOptions: false,
+      showConfirmation: false,
       selectedEvent: {
         id:'',
         name:'',
@@ -29,7 +31,8 @@ class ProfileList extends Component {
         day:'',
         howMany:'',
         type:'',
-        place:''
+        place:'',
+        owner:""
       }
     }
     this.handleChange = this.handleChange.bind(this);
@@ -38,8 +41,45 @@ class ProfileList extends Component {
     this.save = this.save.bind(this);
     this.openEventOptions = this.openEventOptions.bind(this);
     this.closeEventOptions = this.closeEventOptions.bind(this);
+    this.removeEvent= this.removeEvent.bind(this);
+    this.confirmation = this.confirmation.bind(this);
+    this.closeConfirmation = this.closeConfirmation.bind(this);
   }
 
+  confirmation()
+  {
+    this.closeEventOptions();
+    this.setState({ showConfirmation: true });
+  }
+  closeConfirmation()
+  {
+    this.setState({ showConfirmation: false });
+  }
+  removeEvent()
+  {
+    let user = Meteor.user();
+    if(this.state.selectedEvent.owner == user._id)
+    {
+      deleteEvent.call( {id:this.state.selectedEvent.id},
+      (err, res) => {
+        if(err)
+        {
+          console.log(err);
+        }
+      });
+    }
+    else
+    {
+      removePerson.call( {id:this.state.selectedEvent.id, person: user.username},
+      (err, res) => {
+        if(err)
+        {
+          console.log(err);
+        }
+      });
+    }
+    this.setState({ showConfirmation: false });
+  }
   close() {
     this.setState({ showModal: false });
   }
@@ -73,7 +113,8 @@ class ProfileList extends Component {
       day: event.when.getDate(),
       howMany: event.howMany,
       type: event.type,
-      place: event.place
+      place: event.place,
+      owner: event.owner
     };
     this.setState({ selectedEvent: newEvent,showModalOptions: true });
   }
@@ -245,8 +286,22 @@ class ProfileList extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.closeEventOptions}>Cerrar</Button>
+              <Button className='pull-left' bsStyle='danger' onClick={this.confirmation}><i className="glyphicon glyphicon-remove"></i></Button>
           </Modal.Footer>
       </Modal>
+      <Modal show={this.state.showConfirmation} onHide={this.closeConfirmation}>
+        <Modal.Header closeButton>
+          <Modal.Title>Eliminar Evento</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>¿Seguro que desea eliminar el evento <b>{this.state.selectedEvent.name}</b>?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.closeConfirmation} bsStyle='danger'>No</Button>
+          <Button className='pull-left' bsStyle='success' onClick={this.removeEvent}>Si</Button>
+        </Modal.Footer>
+    </Modal>
+
       </div>
     );
   }
