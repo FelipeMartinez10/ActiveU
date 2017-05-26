@@ -16,7 +16,7 @@ class ProfileList extends Component {
       types: ["Deportes","Vida Nocturna", "Cultural", "Alimentación", "Académico", "Otros"],
       name:"",
       place:"",
-      type:"",
+      type:"Deportes",
       description:"",
       when: "",
       howMany: "",
