@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, {Component} from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Button } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import Chat from './Chat.jsx';
 import { addPerson } from '../api/events.js'
 /* eslint-enable no-unused-vars */
@@ -12,14 +12,33 @@ export default class Detalles extends Component {
     super(props);
 
     this.handleButton= this.handleButton.bind(this);
+    this.close = this.close.bind(this);
+    this.open = this.open.bind(this);
+    this.state =
+    {
+      show:false
+    }
+  }
+  close()
+  {
+    this.setState({ show: false });
+  }
+  open()
+  {
+    this.setState({ show: true });
   }
   handleButton()
   {
+    var self = this;
     addPerson.call( {id:this.props.id, person: Meteor.user().username},
     (err, res) => {
       if(err)
       {
         console.log(err);
+      }
+      else
+      {
+        this.open();
       }
     });
   }
@@ -47,9 +66,17 @@ export default class Detalles extends Component {
             </div>
           </div>
         </div>
-        {/*<Chat
-          event={this.props.id}
-        />*/}
+        <Modal show={this.state.show} onHide={this.close}>
+          <Modal.Header closeButton>
+            <Modal.Title>Has sido agregado al evento</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Se agregó el evento a tu sección de perfil, ahí encontraras un chat.</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button bsStyle='success' onClick={this.close}>Entendido</Button>
+          </Modal.Footer>
+      </Modal>
       </div>
     );
   }
